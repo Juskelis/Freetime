@@ -1,0 +1,22 @@
+body {
+	background-color: #E2E2FF;
+}
+
+.fc-view-container {
+	background-color: white;
+	box-shadow: 0px 5px 5px #BBBBBB;
+}
+
+.btn-group-vertical
+{
+	width:90%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}

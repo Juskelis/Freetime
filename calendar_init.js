@@ -3,7 +3,20 @@ $(document).ready(function() {
 	
 	$('#calendar').fullCalendar({
 		editable: true,
-		eventlimit: true,
+		eventLimit: true,
+		
+		events: [
+		  {
+			"title": "Birthday",
+			"start": "2015-04-21",
+			"allDay": "true"
+		  },
+		  {
+			"title": "Meeting",
+			"start": "2015-04-12T10:30:00-05:00",
+			"end": "2015-04-12T12:30:00-05:00"
+		  }
+		],
 		
 		header: 
 		{
@@ -18,3 +31,9 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function ChangeCalendar(arr)
+{
+	$('#calendar').fullCalendar('removeEvents');
+	$('#calendar').fullCalendar('addEventSource', arr);
+}

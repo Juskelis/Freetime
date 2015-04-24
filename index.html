@@ -8,47 +8,63 @@
 		
 		<!-- Calendar Theme from FullCalendar -->
 		<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+		
+		<!-- Custom CSS -->
+		<link rel='stylesheet' href='customCSS.css' />
 	</head>
 	
 	<body>
-		<div class="container">
-		
-			<nav class = "navbar navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#">FreeTime</a>
-					</div>
-					<div id="navbar" class="navbar-collapse collapse">
-						<ul class="nav navbar-nav">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">List<span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Create</a></li>
-									<li><a href="index2.html">Active</a></li>
-									<li><a href="#">Disabled</a></li>
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Shared<span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Active</a></li>
-									<li><a href="#">Pending</a></li>
-								</ul>
-							</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#">Login</a></li>
-						</ul>
+		<nav class = "navbar navbar-default navbar-static-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">FreeTime</a>
 				</div>
-			</nav>
-		
-		</div> <!-- /container -->
-			
-		<div id='calendar' style="max-width: 900px; margin: 0 auto;"></div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">List<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Create</a></li>
+								<li><a href="index2.html">Active</a></li>
+								<li><a href="#">Disabled</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Shared<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Active</a></li>
+								<li><a href="#">Pending</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Login</a></li>
+					</ul>
+			</div>
+		</nav>
 		
 		<div class = "container">
+			<div class = "row">
+				<div class="col-md-10">
+					<div id='calendar' style="max-width: 900px; margin: 0 auto;"></div>
+				</div>
+				<div class="col-md-2">
+					<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+						<button type="button" class="btn btn-lg btn-default" onclick="runMain();">Main</button>
+						<button type="button" class="btn btn-lg btn-default" onclick="runSchool();">School</button>
+						<button type="button" class="btn btn-lg btn-default" onclick="runWork();">Work</button>
+						<button type="button" class="btn btn-lg btn-default" onclick="runConcert();">Concert</button>
+					</div>
+				</div>
+			</div>
 			
 		</div>
+		
+		<footer class="footer">
+			<div class="container">
+				<p class="text-muted">Created by Matt Juskelis, Alexander Silverman, and Jackson Vandyck. Uses Bootstrap, FullCalendar, NodeJS, and MongoDB/Mongoose</p>
+			</div>
+		</footer>
 		
 		
 	</body>
@@ -68,5 +84,6 @@
 	<!-- Custom JavaScript
 	================================================== -->
 	<script src='calendar_init.js'></script>
+	<script src='eventSources/main.js'></script>
 	
 </html>

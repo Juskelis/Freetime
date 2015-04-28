@@ -26,12 +26,3 @@ http.createServer( function (req, res) {
 	});
 	
 }).listen(8080);
-	
-	fs.readFile(filename, 'utf8', function (err, data) {
-	  if (err) {
-		return console.log(err);
-	  }
-	  res.end(data);
-	});
-	
-}).listen(8080);

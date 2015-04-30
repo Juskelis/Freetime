@@ -37,15 +37,16 @@ var app = express();
 
 app.use('/events/:ename', function(req, res) {
 	var filename = './eventSources/' + req.param('ename') + '.json';
-	
+	var obj;
 	fs.readFile(filename, function(err, data) {
 		if(err) {
 			return;
 		}
-		ChangeCalendar(JSON.parse(data));
+		obj = JSON.parse(data);
+		//ChangeCalendar(JSON.parse(data));
 	});
 	
-	res.send();
+	res.json(obj);
 });
 
 app.param('ename', function(req, res, next, value) {

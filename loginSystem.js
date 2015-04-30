@@ -41,7 +41,8 @@ function login(username, password)
 	else
 	{
 		$('#loginModal').modal('toggle');
-		//allEvents();
+		loadEventsFromServer('myEvents.json');
+		loadEventsFromServer('friendEvents.json');
 		document.getElementById('LoginButton').style.display = "none";
 		document.getElementById('SignUpButton').style.display = "none";
 		document.getElementById('SignOutButton').style.display = "block";

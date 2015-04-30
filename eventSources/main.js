@@ -1,5 +1,5 @@
 //main calendar
-function runMain()
+/*function runMain()
 {
 	ChangeCalendar([
 		{
@@ -104,5 +104,104 @@ function runConcert()
 			"end": "2015-04-13T23:00"
 		}
 	]);
+}*/
+// Silverman's Mods
+function myEvents()
+{
+
+
+	ChangeCalendar([
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-01T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-03T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-06T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-08T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-10T10:00-12:20"
+		}
+	]);
 }
 
+function friendEvents()
+{
+	ChangeCalendar([
+		{
+			"title": "Kimbra",
+			"start": "2015-04-13T20:00",
+			"end": "2015-04-13T23:00"
+		},
+		{
+			"title": "Movie",
+			"start": "2015-04-14T20:00",
+			"end": "2015-04-14T23:00"
+		},
+		{
+			"title": "Dinner",
+			"start": "2015-04-16T20:00",
+			"end": "2015-04-16T23:00"
+		}
+	]);
+}
+
+function allEvents()
+{
+	ChangeCalendar([
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-01T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-03T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-06T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-08T10:00-12:20"
+		},
+		{
+			"id": "999",
+			"title": "Class",
+			"start": "2015-04-10T10:00-12:20"
+		},
+			{
+			"title": "Kimbra",
+			"start": "2015-04-13T20:00",
+			"end": "2015-04-13T23:00"
+		},
+		{
+			"title": "Movie",
+			"start": "2015-04-14T20:00",
+			"end": "2015-04-14T23:00"
+		},
+		{
+			"title": "Dinner",
+			"start": "2015-04-16T20:00",
+			"end": "2015-04-16T23:00"
+		}
+	]);
+}

@@ -157,6 +157,8 @@ NOTE: use percentage font sizes or else old IE chokes
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+text-transform: capitalize;
+
 
 	/* dimensions */
 	margin: 0;
@@ -256,6 +258,8 @@ NOTE: use percentage font sizes or else old IE chokes
 	display: inline-block;
 }
 
+}
+
 /*
 every button that is not first in a button group should scootch over one pixel and cover the
 previous button's border...
@@ -264,12 +268,12 @@ previous button's border...
 .fc .fc-button-group > * { /* extra precedence b/c buttons have margin set to zero */
 	float: left;
 	margin: 0 0 0 -1px;
+
 }
 
 .fc .fc-button-group > :first-child { /* same */
 	margin-left: 0;
 }
-
 
 /* Popover
 --------------------------------------------------------------------------------------------------*/
@@ -678,6 +682,10 @@ a.fc-more:hover {
 
 .fc-toolbar .fc-right {
 	float: right;
+
+.fc .fc-button-group > :first-child { /* same */
+	margin-left: 0;}
+
 }
 
 .fc-toolbar .fc-center {

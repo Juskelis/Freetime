@@ -146,9 +146,9 @@
 						<button type="button" class="btn btn-lg btn-default" onclick="runWork();">Work</button>
 						<button type="button" class="btn btn-lg btn-default" onclick="runConcert();">Concert</button>-->
 						<!-- Silverman's mods -->
-						<button type="button" id="allEventsButton" class="btn btn-lg btn-default" onclick="allEvents();" disabled >All Events</button>
-						<button type="button" id="myEventsButton" class="btn btn-lg btn-default" onclick="myEvents();" disabled >My Events</button>
-						<button type="button" id="friendEventsButton" class="btn btn-lg btn-default" onclick="friendEvents();" disabled >Friend's Events</button>
+						<button type="button" id="allEventsButton" class="btn btn-lg btn-default" onclick="ClearCalendar(); loadEventsFromServer('main.json');" disabled >All Events</button>
+						<button type="button" id="myEventsButton" class="btn btn-lg btn-default" onclick="" disabled >My Events</button>
+						<button type="button" id="friendEventsButton" class="btn btn-lg btn-default" onclick="" disabled >Friend's Events</button>
 					</div>
 				</div>
 			</div>
@@ -180,5 +180,6 @@
 	<script src='calendar_init.js'></script>
 	<script src='eventSources/main.js'></script>
 	<script src="loginSystem.js"></script>
+	<script src="eServer.js"></script>
 	
 </html>

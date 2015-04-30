@@ -1,4 +1,4 @@
-/*
+
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
@@ -27,32 +27,21 @@ http.createServer( function (req, res) {
 	});
 	
 }).listen(8080);
-*/
+
 
 var express = require('express');
-var fs = require("fs");
-var app = express();
 
-//serve json content for the app from the "events" directory in the app dir
-
-app.use('/events/:ename', function(req, res) {
-	var filename = './eventSources/' + req.param('ename') + '.json';
-	var obj;
-	fs.readFile(filename, function(err, data) {
-		if(err) {
-			return;
-		}
-		obj = JSON.parse(data);
-		//ChangeCalendar(JSON.parse(data));
-	});
+function loadEventsFromServer(url) {
+	url = 'eventSources/' + url;
+	var xmlhttp = new XMLHttpRequest();
+	var events;
 	
-	res.json(obj);
-});
-
-app.param('ename', function(req, res, next, value) {
-	console.log('The param value is: ' + value);
-	next();
-});
-
-app.use(express.static('./'));
-app.listen(80);
+	xmlhttp.onreadystatechange = function() {
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var events = JSON.parse(xmlhttp.responseText);
+			AddToCalendar(events);
+		}
+	}
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}

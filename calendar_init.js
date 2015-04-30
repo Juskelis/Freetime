@@ -32,8 +32,12 @@ $(document).ready(function() {
 	});
 });
 
-function ChangeCalendar(arr)
+function ClearCalendar()
 {
 	$('#calendar').fullCalendar('removeEvents');
+}
+
+function AddToCalendar(arr)
+{
 	$('#calendar').fullCalendar('addEventSource', arr);
 }

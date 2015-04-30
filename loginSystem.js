@@ -50,6 +50,8 @@ function login(username, password)
 		document.getElementById('myEventsButton').disabled = false;
 		document.getElementById('allEventsButton').disabled = false;
 		document.getElementById('friendEventsButton').disabled = false;
+		loadEventsFromServer('main.json');
+
 	}
 }
 

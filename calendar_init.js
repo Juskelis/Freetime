@@ -41,3 +41,20 @@ function AddToCalendar(arr)
 {
 	$('#calendar').fullCalendar('addEventSource', arr);
 }
+
+
+
+function loadEventsFromServer(url) {
+	url = 'eventSources/' + url;
+	var xmlhttp = new XMLHttpRequest();
+	var events;
+	
+	xmlhttp.onreadystatechange = function() {
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var events = JSON.parse(xmlhttp.responseText);
+			AddToCalendar(events);
+		}
+	}
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}

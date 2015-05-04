@@ -2,7 +2,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
-
+var express = require('express')
 var message = [
 	'Server Running.'
 ];
@@ -27,21 +27,3 @@ http.createServer( function (req, res) {
 	});
 	
 }).listen(8080);
-
-
-var express = require('express');
-
-function loadEventsFromServer(url) {
-	url = 'eventSources/' + url;
-	var xmlhttp = new XMLHttpRequest();
-	var events;
-	
-	xmlhttp.onreadystatechange = function() {
-		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			var events = JSON.parse(xmlhttp.responseText);
-			AddToCalendar(events);
-		}
-	}
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
-}

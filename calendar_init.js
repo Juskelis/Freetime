@@ -42,9 +42,16 @@ function AddToCalendar(arr)
 	$('#calendar').fullCalendar('addEventSource', arr);
 }
 
+function loadEventsFromServer(urlList) {
+	ClearCalendar();
+	
+	for(i = 0; i < urlList.length; i++) {
+		loadEventSourceFromServer(urlList[i]);
+	}
+}
 
 
-function loadEventsFromServer(url) {
+function loadEventSourceFromServer(url) {
 	url = 'eventSources/' + url;
 	var xmlhttp = new XMLHttpRequest();
 	var events;

@@ -1,29 +1,11 @@
 
-var http = require('http');
-var fs = require('fs');
 var url = require('url');
-var express = require('express')
-var message = [
-	'Server Running.'
-];
+var express = require('express');
 
-http.createServer( function (req, res) {
-	res.setHeader('Content-Type', "text/html");
-	res.writeHead(200);
+var app = express();
 
-	var filename = url.parse(req.url).pathname.slice(1);
-	
-	if (filename === '') {
-		filename = 'index.html';
-	}
-	
-	console.log('filename: ' + filename);
-	
-	fs.readFile(filename, 'utf8', function (err, data) {
-	  if (err) {
-		return console.log(err);
-	  }
-	  res.end(data);
-	});
-	
-}).listen(8080);
+app.use('/eventSources', express.static('./eventSources'));
+
+app.use(express.static('./apps'));
+
+app.listen(80);

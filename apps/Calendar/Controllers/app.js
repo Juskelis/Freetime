@@ -9,22 +9,23 @@
  * Main module of the application.
  */
 angular
-  .module('calendarApp', [
-    'ngAnimate',
-    'ngAria',
-    'ngCookies',
-    'ngMessages',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'Calendar/Views/calendar.html'
-	  })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+.module('calendarApp', [
+	'ngAnimate',
+	'ngAria',
+	'ngCookies',
+	'ngMessages',
+	'ngResource',
+	'ngRoute',
+	'ngSanitize',
+	'ngTouch'
+])
+.config(function ($routeProvider) {
+	$routeProvider
+	.when('/', {
+		templateUrl: 'Calendar/Views/calendar.html',
+		controller: 'CalendarCtrl'
+	})
+	.otherwise({
+		redirectTo: '/'
+	});
+});

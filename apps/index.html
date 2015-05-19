@@ -14,95 +14,97 @@
 	</head>
 	
 	<body ng-app="calendarApp">
-		<!-- Login Modal -->
-		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="Login">Login</h4>
-					</div>
-					
-					<div class="modal-body" id="login-body">
-						<div class="input-group input-group-lg" style="width:100%;">
-							<input id="login-username" type="text" class="form-control" placeholder="Username" onkeyup="loginEnterKeyCheck(event);">
+		<div ng-controller="AccountCtrl">
+			<!-- Login Modal -->
+			<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="Login">Login</h4>
 						</div>
-						<div class="input-group input-group-lg" style="width:100%;">
-							<input id="login-password" type="password" class="form-control" placeholder="Password" onkeyup="loginEnterKeyCheck(event);">
+						
+						<div class="modal-body" id="login-body">
+							<div class="input-group input-group-lg" style="width:100%;">
+								<input id="login-username" type="text" class="form-control" placeholder="Username" onkeyup="loginEnterKeyCheck(event);">
+							</div>
+							<div class="input-group input-group-lg" style="width:100%;">
+								<input id="login-password" type="password" class="form-control" placeholder="Password" onkeyup="loginEnterKeyCheck(event);">
+							</div>
+							<div class="alert alert-warning" role="alert" id="failed-login" hidden="true">That's a typo.</div>
+							<p class="text-muted"><a>Forgot Password?</a></p>
+							<p class="text-muted"><a>Register new acccount</a></p>
 						</div>
-						<div class="alert alert-warning" role="alert" id="failed-login" hidden="true">That's a typo.</div>
-						<p class="text-muted"><a>Forgot Password?</a></p>
-						<p class="text-muted"><a>Register new acccount</a></p>
-					</div>
-					
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" id="login-button" onclick="login(document.getElementById('login-username').value, document.getElementById('login-password').value);">
-						Login
-						</button>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="login-button" onclick="login(document.getElementById('login-username').value, document.getElementById('login-password').value);">
+							Login
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		<!-- Signup Modal -->
-		<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="Signup">Sign Up</h4>
-					</div>
-					
-					<div class="modal-body" id="signup-body">
-						<div class="input-group input-group-lg" style="width:100%;">
-							<input id="signup-email" type="text" class="form-control" placeholder="Email" onkeyup="signUpEnterKeyCheck(event);">
+			
+			<!-- Signup Modal -->
+			<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="Signup">Sign Up</h4>
 						</div>
-						<div class="input-group input-group-lg" style="width:100%;">
-							<input id="signup-username" type="text" class="form-control" placeholder="Username" onkeyup="signUpEnterKeyCheck(event);">
+						
+						<div class="modal-body" id="signup-body">
+							<div class="input-group input-group-lg" style="width:100%;">
+								<input id="signup-email" type="text" class="form-control" placeholder="Email" onkeyup="signUpEnterKeyCheck(event);">
+							</div>
+							<div class="input-group input-group-lg" style="width:100%;">
+								<input id="signup-username" type="text" class="form-control" placeholder="Username" onkeyup="signUpEnterKeyCheck(event);">
+							</div>
+							<div class="input-group input-group-lg" style="width:100%;">
+								<input id="signup-password" type="password" class="form-control" placeholder="Password" onkeyup="signUpEnterKeyCheck(event);">
+							</div>
+							<div class="alert alert-warning" role="alert" id="failed-signup" hidden="true">That's a typo.</div>
 						</div>
-						<div class="input-group input-group-lg" style="width:100%;">
-							<input id="signup-password" type="password" class="form-control" placeholder="Password" onkeyup="signUpEnterKeyCheck(event);">
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="login-button" onclick="signup(document.getElementById('signup-email').value, document.getElementById('signup-username').value, document.getElementById('signup-password').value);">
+							Sign Up
+							</button>
 						</div>
-						<div class="alert alert-warning" role="alert" id="failed-signup" hidden="true">That's a typo.</div>
-					</div>
-					
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" id="login-button" onclick="signup(document.getElementById('signup-email').value, document.getElementById('signup-username').value, document.getElementById('signup-password').value);">
-						Sign Up
-						</button>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- Sharing Modal -->
-		<div class="modal fade" id="sharingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="Sharing">Sharing</h4>
-					</div>
-					
-					<div class="modal-body" id="sharing-body">
-						<p class="text">Your Unique ID: <b>378-1234-2413</b></p>
-						<div class="checkbox">
-						    <label>
-						      <input type="checkbox">Enable Sharing
-						    </label>
-						  </div>
-					  <div class="input-group input-group-lg" style="width:100%;">
-							<input id="friend-id" class="form-control" placeholder="Friend's ID" onkeyup="sharingEnterKeyCheck(event);">
+			<!-- Sharing Modal -->
+			<div class="modal fade" id="sharingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="Sharing">Sharing</h4>
 						</div>
-						<button type="button" class="btn btn-default" id="sharing-button" onclick="addFriend(document.getElementById('friend-id').value);">Add Friend
+						
+						<div class="modal-body" id="sharing-body">
+							<p class="text">Your Unique ID: <b>378-1234-2413</b></p>
+							<div class="checkbox">
+								<label>
+								  <input type="checkbox">Enable Sharing
+								</label>
+							  </div>
+						  <div class="input-group input-group-lg" style="width:100%;">
+								<input id="friend-id" class="form-control" placeholder="Friend's ID" onkeyup="sharingEnterKeyCheck(event);">
+							</div>
+							<button type="button" class="btn btn-default" id="sharing-button" onclick="addFriend(document.getElementById('friend-id').value);">Add Friend
+							</button>
+						</div>
+						
+						<div class="modal-footer">
+						<select class="form-control" id="friendList">
+							<option value="one">John's Events</option>
+							<option value="two">Bob's Events</option>
+							<option value="three">Macy's Events</option>
+						</select>
+						<button type="button" class="btn btn-default" id="remove-button" onclick="removeFriend();">Remove
 						</button>
-					</div>
-					
-					<div class="modal-footer">
-					<select class="form-control" id="friendList">
-						<option value="one">John's Events</option>
-						<option value="two">Bob's Events</option>
-						<option value="three">Macy's Events</option>
-					</select>
-					<button type="button" class="btn btn-default" id="remove-button" onclick="removeFriend();">Remove
-					</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -112,7 +114,7 @@
 		<nav class = "navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">FreeTime</a>
+					<a class="navbar-brand" href="#/">FreeTime</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -166,6 +168,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-touch.js"></script>	
 	<script src="Calendar/Controllers/app.js"></script>
 	<script src="Calendar/Controllers/calendarController.js"></script>
+	<script src="Calendar/Controllers/accountController.js"></script>
 		
 	<!-- FullCalendar core JavaScript
 	================================================== -->
@@ -174,7 +177,7 @@
 	
 	<!-- Custom JavaScript
 	================================================== -->
-	<script src='calendar_init.js'></script>
-	<script src="loginSystem.js"></script>
+	<!--<script src='calendar_init.js'></script>-->
+	<!--<script src="loginSystem.js"></script>-->
 	
 </html>

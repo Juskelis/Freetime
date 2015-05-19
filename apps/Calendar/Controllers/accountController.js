@@ -10,8 +10,9 @@
  */
 angular
 .module('calendarApp')
-.controller('CalendarCtrl', ['$scope', '$rootScope', '$http',
+.controller('AccountCtrl', ['$scope', '$rootScope', '$http',
 	function($scope,  $rootScope, $http) {
+		/*
 		$scope.initCalendar = function() {
 			$('#calendar').fullCalendar({
 				editable: true,
@@ -56,5 +57,6 @@ angular
 			xmlhttp.open("GET", url, true);
 			xmlhttp.send();
 		}
+		*/
 	}
 ]);

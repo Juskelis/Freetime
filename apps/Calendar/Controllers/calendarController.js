@@ -43,6 +43,7 @@ angular
 		};
 		
 		$scope.loadEventSourceFromServer = function(url) {
+<<<<<<< HEAD
 			url = 'eventSources/' + url;
 			var xmlhttp = new XMLHttpRequest();
 			var events;
@@ -55,6 +56,12 @@ angular
 			}
 			xmlhttp.open("GET", url, true);
 			xmlhttp.send();
+=======
+			$http.get('eventSources/' + url).success(function(data) {
+				var events = JSON.parse(data);
+				AddToCalendar(events);
+			});
+>>>>>>> origin/master
 		};
 	}
 ]);

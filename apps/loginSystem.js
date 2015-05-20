@@ -95,7 +95,7 @@ function signUpEnterKeyCheck(event) {
         signup(document.getElementById('signup-email').value, document.getElementById('signup-username').value, document.getElementById('signup-password').value);
     }
 }
-/* NOTE THIS BELONGS IN ITS OWN FILE*/
+
 function sharingEnterKeyCheck(event) {
 	if (event.which == 13 || event.keyCode == 13) {
         addFriend(document.getElementById('friend-id').value);

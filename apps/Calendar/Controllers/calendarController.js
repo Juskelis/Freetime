@@ -40,7 +40,7 @@ angular
 			for(i = 0; i < calendarNames.length; i++) {
 				loadEventSourceFromServer(calendarNames[i]);
 			}
-		}
+		};
 		
 		$scope.loadEventSourceFromServer = function(url) {
 			url = 'eventSources/' + url;
@@ -55,6 +55,6 @@ angular
 			}
 			xmlhttp.open("GET", url, true);
 			xmlhttp.send();
-		}
+		};
 	}
 ]);

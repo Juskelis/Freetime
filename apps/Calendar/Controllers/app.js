@@ -33,6 +33,6 @@ angular
 	function($scope, $rootScope, $http) {
 		$http.get('eventSources/' + url).success(function(data, status, headers, config) {
 			$('#calendar').fullCalendar('addEventSource', data);
-		};
+		});
 	}
 });

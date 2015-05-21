@@ -43,7 +43,7 @@ angular
 			else
 			{
 				$('#loginModal').modal('toggle');
-				loadEventsFromServer(['myEvents.json','friendEvents.json']);
+				$scope.loadEventsFromServer(['myEvents.json','friendEvents.json']);
 				document.getElementById('LoginButton').style.display = "none";
 				document.getElementById('SignUpButton').style.display = "none";
 				document.getElementById('SignOutButton').style.display = "block";
@@ -112,6 +112,30 @@ angular
 
 		$scope.removeFriend = function () {
 			document.getElementById("friendList").options[document.getElementById("friendList").selectedIndex] = null;
+		};
+		
+		
+		// calendar stuff
+		$scope.ClearCalendar = function() {
+			$('#calendar').fullCalendar('removeEvents');
+		};
+		
+		$scope.AddToCalendar = function(arr) {
+			$('#calendar').fullCalendar('addEventSource', arr);
+		};
+		
+		$scope.loadEventsFromServer = function(calendarNames) {
+			$scope.ClearCalendar();
+			
+			for(var i = 0; i < calendarNames.length; i++) {
+				$scope.loadEventSourceFromServer(calendarNames[i]);
+			}
+		};
+		
+		$scope.loadEventSourceFromServer = function(url) {
+			$http.get('eventSources/' + url).success(function(data, status, headers, config) {
+				$scope.AddToCalendar(data);
+			});
 		};
 	}
 ]);

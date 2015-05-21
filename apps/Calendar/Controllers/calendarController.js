@@ -35,16 +35,16 @@ angular
 		};
 		
 		$scope.loadEventsFromServer = function(calendarNames) {
-			ClearCalendar();
+			$scope.ClearCalendar();
 			
-			for(i = 0; i < calendarNames.length; i++) {
-				loadEventSourceFromServer(calendarNames[i]);
+			for(var i = 0; i < calendarNames.length; i++) {
+				$scope.loadEventSourceFromServer(calendarNames[i]);
 			}
 		};
 		
-		$scope.loadEventSourceFromServer = function(sourceName) {
-			$http.get('eventSources/' + sourceName).success(function(data, status, headers, config) {
-				AddToCalendar(data);
+		$scope.loadEventSourceFromServer = function(url) {
+			$http.get('eventSources/' + url).success(function(data, status, headers, config) {
+				$scope.AddToCalendar(data);
 			});
 		};
 	}

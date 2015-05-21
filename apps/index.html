@@ -110,33 +110,34 @@
 			</div>
 		
 		
-		<!-- Navbar -->
-		<nav class = "navbar navbar-default navbar-static-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#/">FreeTime</a>
+			<!-- Navbar -->
+			<nav class = "navbar navbar-default navbar-static-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#/">FreeTime</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="" id="SharingButton" data-toggle="modal" data-target="#sharingModal" style="display: none;">Sharing</a>
+							</li>
+							<li>
+								<a href="" id="SignOutButton" data-toggle="modal" ng-click="signOut();" style="display: none;">Sign Out</a>
+							</li>
+							<li>
+								<a href="" id="LoginButton" data-toggle="modal" data-target="#loginModal">Login</a>
+							</li>
+							<li>
+								<a href="" id="SignUpButton" data-toggle="modal" data-target="#signupModal">Sign up</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<a href="" id="SharingButton" data-toggle="modal" data-target="#sharingModal" style="display: none;">Sharing</a>
-						</li>
-						<li>
-							<a href="" id="SignOutButton" data-toggle="modal" ng-click="signOut();" style="display: none;">Sign Out</a>
-						</li>
-						<li>
-							<a href="" id="LoginButton" data-toggle="modal" data-target="#loginModal">Login</a>
-						</li>
-						<li>
-							<a href="" id="SignUpButton" data-toggle="modal" data-target="#signupModal">Sign up</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+			</nav>
 		</div>
+		
 		<div class = "container" id="main-content" ng-view="">
 		</div>
 		

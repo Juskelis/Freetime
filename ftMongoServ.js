@@ -86,7 +86,6 @@ function getFriendEvents(res){
 app.use('/', express.static('./apps/'));
 app.use('/eventSources/', express.static('./eventsources'));
 
-
 app.get('/events/all', function (req, res){
 	console.log("get all events");
 	getAllEvents(res);

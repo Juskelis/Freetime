@@ -43,14 +43,18 @@ angular
 			else
 			{
 				$('#loginModal').modal('toggle');
-				$scope.loadEventsFromServer(['all']);
+				$scope.loadEventsFromServer(['self', 'friend']);
 				document.getElementById('LoginButton').style.display = "none";
 				document.getElementById('SignUpButton').style.display = "none";
 				document.getElementById('SignOutButton').style.display = "block";
-				document.getElementById('SharingButton').style.display = "block"
-				document.getElementById('myEventsButton').disabled = false;
-				document.getElementById('allEventsButton').disabled = false;
-				document.getElementById('friendEventsButton').disabled = false;
+				document.getElementById('SharingButton').style.display = "block";
+
+				//angular.element(document.querySelector('myEventsButton').disabled = false;
+				//angular.element(document.querySelector('allEventsButton').disabled = false;
+				//angular.element(document.querySelector('friendEventsButton').disabled = false;
+				//document.getElementById('myEventsButton').disabled = false;
+				//document.getElementById('allEventsButton').disabled = false;
+				//document.getElementById('friendEventsButton').disabled = false;
 			}
 		};
 

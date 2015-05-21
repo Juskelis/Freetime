@@ -29,7 +29,7 @@
 		eventListId: 1,
 		events : [
 		 {
-			title: "dinner",
+			title: "My Dinner",
 			description: "Din-Din",
 			eventListId: 1,
 			id: 999,
@@ -37,7 +37,7 @@
 			start: "2015-05-20T20:00-22:20"
 		 },
 		 {
-			title: "class",
+			title: "Class",
 			description: "SaaS",
 			eventListId: 1,
 			id: 100,
@@ -45,7 +45,7 @@
 			start: "2015-05-10T10:00-12:20"
 		 },
 		 {
-			title: "class",
+			title: "Class",
 			description: "SaaS",
 			eventListId: 1,
 			id: 100,
@@ -53,7 +53,7 @@
 			start: "2015-05-12T10:00-12:20"
 		 },
 		 {
-			title: "class",
+			title: "Class",
 			description: "SaaS",
 			eventListId: 1,
 			id: 100,
@@ -72,23 +72,7 @@
 		eventListId: 2,
 		events : [
 		 {
-			title: "dinner",
-			description: "Din-Din",
-			eventListId: 2,
-			id: 999,
-			privacy: "true",
-			start: "2015-05-7T2:00-8:40"
-		 },
-		 {
-			title: "Concert",
-			description: "Some plebeian band",
-			eventListId: 2,
-			id: 666,
-			privacy: "true",
-			start: "2015-05-16T3:00-4:30"
-		 },
-		 {
-			title: "something else",
+			title: "Misc",
 			description: "SaaS",
 			eventListId: 2,
 			id: 10,
@@ -96,14 +80,29 @@
 			start: "2015-05-20T10:00-12:20"
 		 },
 		 {
-			title: "Trip to",
-			description: "you know what I mean",
+			title: "Fix The Car",
+			description: "Yup",
 			eventListId: 2,
-			id: 420,
+			id: 11,
 			privacy: "true",
-			start: "2015-05-06T4:00-5:00"
-		 }
-		 
+			start: "2015-05-22T10:00-12:20"
+		 },
+		  {
+			title: "Date Night",
+			description: "",
+			eventListId: 2,
+			id: 12,
+			privacy: "true",
+			start: "2015-05-15T16:00-20:20"
+		 },
+		 {
+			title: "Concert",
+			description: "Some cool music ayyoooo",
+			eventListId: 2,
+			id: 13,
+			privacy: "true",
+			start: "2015-05-24T16:00-23:00"
+		 },
 		]
 	}
 	)

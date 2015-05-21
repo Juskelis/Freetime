@@ -35,4 +35,4 @@ angular
 			$('#calendar').fullCalendar('addEventSource', data);
 		});
 	}
-});
+]);

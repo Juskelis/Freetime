@@ -60,7 +60,7 @@ function getAllEvents(res){
 	console.log("inside get allevents");
 	var query = Events.find({});
 	query.exec(function (err, itemArray) {
-		res.json(itemArray);
+ 		res.json(itemArray);
 	});
 }
 

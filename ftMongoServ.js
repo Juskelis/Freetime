@@ -57,7 +57,7 @@ mongoose.connection.on('open', function() {
 
 
 function getAllEvents(res){
-	console.log("inside get allevents");
+	console.log("inside get all events");
 	var query = Events.find({});
 	query.exec(function (err, itemArray) {
 		res.json(itemArray);
@@ -66,7 +66,7 @@ function getAllEvents(res){
 
 function getMyEvents(res){
 	
-	console.log("inside get myevents");
+	console.log("inside get my events");
 	var query = Events.find({eventListId:1});
 	query.exec(function (err, itemArray) {
 		res.json(itemArray);
@@ -74,7 +74,7 @@ function getMyEvents(res){
 }
 
 function getFriendEvents(res){
-	console.log("inside get friendevents");
+	console.log("inside get friend events");
 	var query = Events.find({eventListId:2});
 	query.exec(function (err, itemArray) {
 		res.json(itemArray);
@@ -82,29 +82,6 @@ function getFriendEvents(res){
 }
 
 
-/*
-function retrieveAllLists(res) {
-	var query = Lists.find({});
-	query.exec(function (err, itemArray) {
-		res.json(itemArray);
-	});
-}
-
-function retrieveTasksDetails(res, query) {
-	var query = Tasks.findOne(query);
-	query.exec(function (err, itemArray) {
-		res.json(itemArray);		
-	});
-}
-
-function retrieveTasksCount(res, query) {
-	var query = Tasks.find({listId:1}).select('tasks').count();
-	query.exec(function (err, numberOfTasks) {
-		console.log('number of tasks: ' + numberOfTasks);
-		res.json(numberOfTasks);
-	});
-}
-*/
 
 app.use('/', express.static('./apps/'));
 app.use('/eventSources/', express.static('./eventsources'));
@@ -125,34 +102,5 @@ app.get('/events/friend', function (req, res){
 	getFriendEvents(res);
 });
 
-/*
-app.get('/app/lists/:listId/count', function (req, res) {
-	var id = req.params.listId;
-	console.log('Query single list with id: ' + id);
-	retrieveTasksCount(res, {listId: id});
-});
 
-app.post('/app/lists/', jsonParser, function(req, res) {
-	console.log(req.body);
-	var jsonObj = req.body;
-	jsonObj.listId = idGenerator;
-	Lists.create([jsonObj], function (err) {
-		if (err) {
-			console.log('object creation failed');
-		}
-	});
-	res.send(idGenerator.toString());
-	idGenerator++;
-});
-
-app.get('/app/lists/:listId', function (req, res) {
-	var id = req.params.listId;
-	console.log('Query single list with id: ' + id);
-	retrieveTasksDetails(res, {listId: id});
-});
- 
-	console.log('Query All list');
-	retrieveAllLists(res);
-});
-*/
 app.listen(80);

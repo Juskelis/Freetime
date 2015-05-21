@@ -117,29 +117,26 @@ angular
 		
 		// calendar stuff
 		$scope.ClearCalendar = function() {
+			console.log("inside Clear");
 			$('#calendar').fullCalendar('removeEvents');
 		};
 		
 		$scope.AddToCalendar = function(eventList) {
 			console.log("AddToCalendar")
-			//var slicedEvents;
-			//for (var i = 0; i < eventList.events.length; i++){
-			//	slicedEvents += eventList.events
-			//}				
-			$('#calendar').fullCalendar('addEventSource', eventList.events);
+			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
 		};
 		
 		$scope.loadEventsFromServer = function(calendarNames) {
 			$scope.ClearCalendar();
-			
+			console.log("inside loadEventsFromServer");
 			for(var i = 0; i < calendarNames.length; i++) {
 				$scope.loadEventSourceFromServer(calendarNames[i]);
 			}
 		};
 		
 		$scope.loadEventSourceFromServer = function(url) {
-		$http.get('/events/' + url).success(function(data, status, headers, config) {
-			 alert(JSON.stringify(data));
+			$http.get('/events/' + url).success(function(data, status, headers, config) {
+				console.log("inside loadEventsFromServer");
 				$scope.AddToCalendar(data);
 			});
 		};

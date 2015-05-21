@@ -26,6 +26,7 @@ angular
 			});
 		};
 		
+		/*
 		$scope.ClearCalendar = function() {
 			$('#calendar').fullCalendar('removeEvents');
 		};
@@ -47,5 +48,6 @@ angular
 				$scope.AddToCalendar(data);
 			});
 		};
+		*/
 	}
 ]);

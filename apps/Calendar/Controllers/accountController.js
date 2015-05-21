@@ -43,7 +43,7 @@ angular
 			else
 			{
 				$('#loginModal').modal('toggle');
-				$scope.loadEventsFromServer(['myEvents.json','friendEvents.json']);
+				$scope.loadEventsFromServer(['self','friend']);
 				document.getElementById('LoginButton').style.display = "none";
 				document.getElementById('SignUpButton').style.display = "none";
 				document.getElementById('SignOutButton').style.display = "block";
@@ -133,7 +133,7 @@ angular
 		};
 		
 		$scope.loadEventSourceFromServer = function(url) {
-			$http.get('eventSources/' + url).success(function(data, status, headers, config) {
+			$http.get('#/events/' + url).success(function(data, status, headers, config) {
 				$scope.AddToCalendar(data);
 			});
 		};

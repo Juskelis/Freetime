@@ -127,7 +127,6 @@ angular
 		};
 		
 		$scope.loadEventsFromServer = function(calendarNames) {
-			$scope.ClearCalendar();
 			for(var i = 0; i < calendarNames.length; i++) {
 				$scope.loadEventSourceFromServer(calendarNames[i]);
 			}

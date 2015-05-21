@@ -35,7 +35,6 @@ angular
 		
 		$scope.AddToCalendar = function(eventList) {
 			console.log("AddToCalendar")
-
 			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
 		};
 		

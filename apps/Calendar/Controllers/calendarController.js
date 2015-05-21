@@ -41,5 +41,11 @@ angular
 				loadEventSourceFromServer(calendarNames[i]);
 			}
 		};
+		
+		$scope.loadEventSourceFromServer = function(sourceName) {
+			$http.get('eventSources/' + sourceName).success(function(data, status, headers, config) {
+				AddToCalendar(data);
+			});
+		};
 	}
 ]);

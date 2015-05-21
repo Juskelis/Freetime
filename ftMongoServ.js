@@ -14,7 +14,6 @@ var Users;
 var Calendars;
 var Events;
 
-var idGenerator = 100;
 
 //put config url behind file to hide passwords and username
 var mongoDBConnection = require('./db.ftSample.config');
@@ -39,12 +38,13 @@ mongoose.connection.on('open', function() {
 			calendarId: Number,
 			eventListId: Number,
 			events: [ {
-			   name: String,
+			   title: String,
 			   description: String,
 			   eventListId: Number,
-			   eventId: Number,
+			   //eventId listed as ID
+			   id: Number,
 			   privacy: String,
-			   date: String
+			   start: String
 			}]
 		},
 	   {collection: 'events'}
@@ -57,6 +57,7 @@ mongoose.connection.on('open', function() {
 
 
 function getAllEvents(res){
+	console.log("inside get allevents");
 	var query = Events.find({});
 	query.exec(function (err, itemArray) {
 		res.json(itemArray);
@@ -64,6 +65,8 @@ function getAllEvents(res){
 }
 
 function getMyEvents(res){
+	
+	console.log("inside get myevents");
 	var query = Events.find({eventListId:1});
 	query.exec(function (err, itemArray) {
 		res.json(itemArray);
@@ -71,6 +74,7 @@ function getMyEvents(res){
 }
 
 function getFriendEvents(res){
+	console.log("inside get friendevents");
 	var query = Events.find({eventListId:2});
 	query.exec(function (err, itemArray) {
 		res.json(itemArray);
@@ -114,12 +118,12 @@ app.get('/events/all', function (req, res){
 app.get('/events/self', function (req, res){
 	console.log("get my events");
 	getMyEvents(res);
-};
+});
 
 app.get('/events/friend', function (req, res){
 	console.log("get friend events");
-	getMyEvents(res);
-};
+	getFriendEvents(res);
+});
 
 /*
 app.get('/app/lists/:listId/count', function (req, res) {

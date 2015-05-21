@@ -43,7 +43,7 @@ angular
 			else
 			{
 				$('#loginModal').modal('toggle');
-				$scope.loadEventsFromServer(['myEvents.json','friendEvents.json']);
+				$scope.loadEventsFromServer(['all']);
 				document.getElementById('LoginButton').style.display = "none";
 				document.getElementById('SignUpButton').style.display = "none";
 				document.getElementById('SignOutButton').style.display = "block";
@@ -120,8 +120,13 @@ angular
 			$('#calendar').fullCalendar('removeEvents');
 		};
 		
-		$scope.AddToCalendar = function(arr) {
-			$('#calendar').fullCalendar('addEventSource', arr);
+		$scope.AddToCalendar = function(eventList) {
+			console.log("AddToCalendar")
+			//var slicedEvents;
+			//for (var i = 0; i < eventList.events.length; i++){
+			//	slicedEvents += eventList.events
+			//}				
+			$('#calendar').fullCalendar('addEventSource', eventList.events);
 		};
 		
 		$scope.loadEventsFromServer = function(calendarNames) {
@@ -133,7 +138,8 @@ angular
 		};
 		
 		$scope.loadEventSourceFromServer = function(url) {
-			$http.get('eventSources/' + url).success(function(data, status, headers, config) {
+		$http.get('/events/' + url).success(function(data, status, headers, config) {
+			 alert(JSON.stringify(data));
 				$scope.AddToCalendar(data);
 			});
 		};

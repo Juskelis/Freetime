@@ -128,7 +128,6 @@ angular
 		
 		$scope.loadEventsFromServer = function(calendarNames) {
 			$scope.ClearCalendar();
-			console.log("inside loadEventsFromServer");
 			for(var i = 0; i < calendarNames.length; i++) {
 				$scope.loadEventSourceFromServer(calendarNames[i]);
 			}
@@ -136,7 +135,6 @@ angular
 		
 		$scope.loadEventSourceFromServer = function(url) {
 			$http.get('/events/' + url).success(function(data, status, headers, config) {
-				console.log("inside loadEventsFromServer");
 				$scope.AddToCalendar(data);
 			});
 		};

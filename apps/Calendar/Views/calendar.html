@@ -4,9 +4,9 @@
 	</div>
 	<div class="col-md-2">
 		<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-			<a href = "#/events/all"type="button" id="allEventsButton" class="btn btn-lg btn-default" >All Events</a>
-			<a href = "#/events/self" type="button" id="myEventsButton" class="btn btn-lg btn-default"   >My Events</a>
-			<a href = "#/events/friend" type="button" id="friendEventsButton" class="btn btn-lg btn-default" >Friend's Events</a>
+			<a type="button" id="allEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer(['self', 'friend'])">All Events</a>
+			<a type="button" id="myEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer(['self'])">My Events</a>
+			<a type="button" id="friendEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer(['friend'])">Friend's Events</a>
 		</div>
 	</div>
 </div>

@@ -52,7 +52,7 @@ function loadEventsFromServer(urlList) {
 
 
 function loadEventSourceFromServer(url) {
-	url = 'eventSources/' + url;
+	url = '/events/' + url
 	var xmlhttp = new XMLHttpRequest();
 	var events;
 	

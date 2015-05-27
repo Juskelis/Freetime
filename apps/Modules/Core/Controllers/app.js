@@ -22,7 +22,14 @@ angular
 .config(function ($routeProvider) {
 	$routeProvider
 	.when('/', {
-		templateUrl: 'Calendar/Views/calendar.html',
+		templateUrl: 'Modules/Core/Views/welcome.html'
+	})
+	.when('/auth/', {
+		templateUrl: 'Modules/Authentication/Views/auth.html',
+		controller: 'AccountCtrl'
+	})
+	.when('/cal/', {
+		templateUrl: 'Modules/Calendar/Views/calendar.html',
 		controller: 'CalendarCtrl'
 	})
 	.otherwise({

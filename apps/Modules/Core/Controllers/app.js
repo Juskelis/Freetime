@@ -32,6 +32,10 @@ angular
 		templateUrl: 'Modules/Calendar/Views/calendar.html',
 		controller: 'CalendarCtrl'
 	})
+	.when('/share/', {
+		templateUrl: 'Modules/Sharing/Views/sharing.html',
+		controller: 'SharingCtrl'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});

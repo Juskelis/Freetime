@@ -12,7 +12,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var Users;
 var Calendars;
-var Events;
 
 
 //put config url behind file to hide passwords and username
@@ -23,35 +22,36 @@ console.log(mongoDBConnection.uri);
 mongoose.connect(mongoDBConnection.uri);
 mongoose.connection.on('open', function() {
 	var Schema = mongoose.Schema;
-	var CalendarSchema = new Schema( 
+	var UserSchema = new Schema( 
 		{
 			name: String,
-			ownerId: Number,
-			calendarId: Number
+			uID: Number,
+			calendarId: Number,
+			fcalendarIDs[
+				fID: Number
+			]
 		},
-	   {collection: 'calendars'}
+	   {collection: 'users'}
 	);
-	Calendars = mongoose.model('Calendars', CalendarSchema);
+	Users = mongoose.model('Users', UserSchema);
 	
-	var eventSchema = new Schema( 
+	var calendarSchema = new Schema( 
 		{
 			calendarId: Number,
-			eventListId: Number,
 			events: [ {
 			   title: String,
 			   description: String,
-			   eventListId: Number,
 			   //eventId listed as ID
 			   id: Number,
 			   privacy: String,
 			   start: String
 			}]
 		},
-	   {collection: 'events'}
+	   {collection: 'calendars'}
 	);
 	
 	
-	Events = mongoose.model('Events', eventSchema);
+	Calendars = mongoose.model('Calendars', calendarIdSchema);
 	console.log('models have been created');
 });
 
@@ -86,7 +86,10 @@ function getFriendEvents(res){
 app.use('/', express.static('./apps/'));
 app.use('/eventSources/', express.static('./eventsources'));
 
-app.get('/events/all', function (req, res){
+
+app.get('/:uId/', function(req,res){
+});
+app.get('/events/', function (req, res){
 	console.log("get all events");
 	getAllEvents(res);
 });

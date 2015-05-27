@@ -32,7 +32,7 @@ angular
 			console.log("inside Clear");
 			$('#calendar').fullCalendar('removeEvents');
 		};
-		
+		//possibly change to service
 		$scope.AddToCalendar = function(eventList) {
 			console.log("AddToCalendar")
 			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
@@ -45,7 +45,7 @@ angular
 				$scope.loadEventSourceFromServer(calendarNames[i]);
 			}
 		};
-		
+		//put in server
 		$scope.loadEventSourceFromServer = function(url) {
 			$http.get('/events/' + url).success(function(data, status, headers, config) {
 				console.log("inside loadEventsFromServer");

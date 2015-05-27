@@ -1,37 +1,58 @@
 	db = db.getSiblingDB('fTData')
-	db.createCollection('calendars')
-	calendarCollection = db.getCollection("calendars")
-	calendarCollection.remove({})
-	calendarCollection.insert(
+	db.createCollection('users')
+	userCollection = db.getCollection("users")
+	userCollection.remove({})
+	userCollection.insert(
 	{
-		  name: "fredTime",
-		  ownerId: 1,
+		  name: "Fred Time",
+		  uID:1,
 		  calendarId: 1,
+		  fCalendarIDs[
+		  {
+			fID: 2
+		  ]
 	}
 	)
-	listsCollection.insert(
+	
+	userCollection.insert(
 	{  
-		  name: "francisTime",
-		  ownerId: 2,
-		  calendarId: 2,
+		  name: "Francis Time",
+		  uID: 2,
+		  calendarID: 3,
+		  fCalendarIDs[
+		  {
+			  fID:1
+		  },
+		  {
+			  fID:2
+		  }
+		  ]
+	
+	}
+	)
+	userCollection.insert(
+	{  
+		  name: "Frank Time",
+		  uID: 3,
+		  calendarID: 2,
+		  fCalendarIDs[
+		  ]
 	}
 	)
 
 
 
 
-	db.createCollection('events')
-	eventsCollection = db.getCollection("events")
-	eventsCollection.remove({})
-	eventsCollection.insert(
+	db.createCollection('calendars')
+	calendarsCollection = db.getCollection("calendars")
+	calendarsCollection.remove({})
+	calendarsCollection.insert(
 	{
 		calendarId : 1,
-		eventListId: 1,
 		events : [
 		 {
 			title: "My Dinner",
 			description: "Din-Din",
-			eventListId: 1,
 			id: 999,
 			privacy: "true",
 			start: "2015-05-20T20:00-22:20"
@@ -39,7 +60,6 @@
 		 {
 			title: "Class",
 			description: "SaaS",
-			eventListId: 1,
 			id: 100,
 			privacy: "true",
 			start: "2015-05-10T10:00-12:20"
@@ -47,7 +67,6 @@
 		 {
 			title: "Class",
 			description: "SaaS",
-			eventListId: 1,
 			id: 100,
 			privacy: "true",
 			start: "2015-05-12T10:00-12:20"
@@ -55,7 +74,6 @@
 		 {
 			title: "Class",
 			description: "SaaS",
-			eventListId: 1,
 			id: 100,
 			privacy: "true",
 			start: "2015-05-15T10:00-12:20"
@@ -66,23 +84,21 @@
 
 
 
-	eventsCollection.insert(
+	calendarsCollection.insert(
 	{
-		calendarId : 2,
-		eventListId: 2,
+		calendarId : 3,
 		events : [
 		 {
 			title: "Misc",
 			description: "SaaS",
-			eventListId: 2,
 			id: 10,
 			privacy: "true",
 			start: "2015-05-20T10:00-12:20"
+			
 		 },
 		 {
 			title: "Fix The Car",
 			description: "Yup",
-			eventListId: 2,
 			id: 11,
 			privacy: "true",
 			start: "2015-05-22T10:00-12:20"
@@ -90,7 +106,6 @@
 		  {
 			title: "Date Night",
 			description: "",
-			eventListId: 2,
 			id: 12,
 			privacy: "true",
 			start: "2015-05-15T16:00-20:20"
@@ -98,7 +113,6 @@
 		 {
 			title: "Concert",
 			description: "Some cool music ayyoooo",
-			eventListId: 2,
 			id: 13,
 			privacy: "true",
 			start: "2015-05-24T16:00-23:00"
@@ -108,6 +122,42 @@
 	)
 
 
+	calendarsCollection.insert(
+	{
+		calendarId : 2,
+		events : [
+		{
+			title: "Hiking to see the trees",
+			description: "trees",
+			id: 4,
+			privacy: "true",
+			start: "2015-05-28T10:00-12:20"
+			
+		 },
+		 {
+			title: "Meet with Francis for that thing",
+			description: "gotta move fast",
+			id: 22,
+			privacy: "true",
+			start: "2015-05-22T23:00-23:15"
+		 },
+		  {
+			title: "Date Night",
+			description: "",
+			id: 42,
+			privacy: "true",
+			start: "2015-05-10T16:00-20:20"
+		 },
+		 {
+			title: "Free Tim",
+			description: "Gotta get my homie free",
+			id: 24,
+			privacy: "true",
+			start: "2015-05-12T16:00-23:00"
+		 },
+		]
+	}
+	)
 
 
 

@@ -45,23 +45,10 @@ angular
 		$('#calendar').fullCalendar('addEventSource', eventList[0].events);
 	};
 	
+	// this function needs to be modified in the future
 	this.loadEventsFromServer = function() {
 		$http.get('/events/' + url).success(function(data, status, headers, config) {
 			AddToCalendar(data);
 		});
 	};
 });
-
-/*
-.service('AddToCalendar', function() {
-	return { 
-        fn: function(code, callback) { //note the callback argument
-            $http.get("${createLink(controller:'kats', action:'loadBreedInfo')}",
-            params:{code: code}) //place your code argument here
-                .success(function (template, status, headers, config) {
-                    callback(template); //pass the result to your callback
-                });
-        };
-	};
-});
-*/

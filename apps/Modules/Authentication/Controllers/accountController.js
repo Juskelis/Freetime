@@ -43,18 +43,14 @@ angular
 			else
 			{
 				$('#loginModal').modal('toggle');
-				$scope.loadEventsFromServer(['self', 'friend']);
+				$scope.loadEventsFromServer(['self','friend']);
 				document.getElementById('LoginButton').style.display = "none";
 				document.getElementById('SignUpButton').style.display = "none";
 				document.getElementById('SignOutButton').style.display = "block";
-				document.getElementById('SharingButton').style.display = "block";
-
-				//angular.element(document.querySelector('myEventsButton').disabled = false;
-				//angular.element(document.querySelector('allEventsButton').disabled = false;
-				//angular.element(document.querySelector('friendEventsButton').disabled = false;
-				//document.getElementById('myEventsButton').disabled = false;
-				//document.getElementById('allEventsButton').disabled = false;
-				//document.getElementById('friendEventsButton').disabled = false;
+				document.getElementById('SharingButton').style.display = "block"
+				document.getElementById('myEventsButton').disabled = false;
+				document.getElementById('allEventsButton').disabled = false;
+				document.getElementById('friendEventsButton').disabled = false;
 			}
 		};
 
@@ -121,23 +117,23 @@ angular
 		
 		// calendar stuff
 		$scope.ClearCalendar = function() {
-			console.log("inside Clear");
 			$('#calendar').fullCalendar('removeEvents');
 		};
 		
-		$scope.AddToCalendar = function(eventList) {
-			console.log("AddToCalendar")
-			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
+		$scope.AddToCalendar = function(arr) {
+			$('#calendar').fullCalendar('addEventSource', arr);
 		};
 		
 		$scope.loadEventsFromServer = function(calendarNames) {
+			$scope.ClearCalendar();
+			
 			for(var i = 0; i < calendarNames.length; i++) {
 				$scope.loadEventSourceFromServer(calendarNames[i]);
 			}
 		};
 		
 		$scope.loadEventSourceFromServer = function(url) {
-			$http.get('/events/' + url).success(function(data, status, headers, config) {
+			$http.get('#/events/' + url).success(function(data, status, headers, config) {
 				$scope.AddToCalendar(data);
 			});
 		};

@@ -1,0 +1,28 @@
+<div class="input-group input-group-lg">
+	<span class="input-group-addon" id="name">Name</span>
+	<input type="text" class="form-control" ng-model="{{eventName}}" placeholder="Event name" aria-describedby="name">
+</div>
+<br>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<form role="form">
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon" id="startDate">Start Date</span>
+				<input type="text" class="form-control" ng-model="{{eventStartDate}}" placeholder="YYYY-MM-DD" aria-describedby="startDate">
+			</div>
+			<br>
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon" id="endDate">End Date</span>
+				<input type="text" class="form-control" ng-model="{{eventEndDate}}" placeholder="YYYY-MM-DD" aria-describedby="endDate">
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="desc">Description:</label>
+				<textarea class="form-control" rows="5" id="desc" ng-model="eventDesc" placeholder="Description goes here!"></textarea>
+			</div>
+		</form>
+		<div class="text-right"> 
+			<button class="btn btn-primary btn-lg">Submit</button> 
+		</div>
+	</div>
+</div>

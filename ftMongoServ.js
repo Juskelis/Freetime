@@ -27,8 +27,9 @@ mongoose.connection.on('open', function() {
 			name: String,
 			uID: Number,
 			calendarId: Number,
-			fcalendarIDs[
+			fcalendarIDs[{
 				fID: Number
+			}
 			]
 		},
 	   {collection: 'users'}

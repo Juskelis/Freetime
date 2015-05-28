@@ -48,13 +48,6 @@ angular
 				document.getElementById('SignUpButton').style.display = "none";
 				document.getElementById('SignOutButton').style.display = "block";
 				document.getElementById('SharingButton').style.display = "block";
-
-				//angular.element(document.querySelector('myEventsButton').disabled = false;
-				//angular.element(document.querySelector('allEventsButton').disabled = false;
-				//angular.element(document.querySelector('friendEventsButton').disabled = false;
-				//document.getElementById('myEventsButton').disabled = false;
-				//document.getElementById('allEventsButton').disabled = false;
-				//document.getElementById('friendEventsButton').disabled = false;
 			}
 		};
 
@@ -86,10 +79,7 @@ angular
 			document.getElementById('LoginButton').style.display = "block";
 			document.getElementById('SignUpButton').style.display = "block";
 			document.getElementById('SignOutButton').style.display = "none";
-			document.getElementById('SharingButton').style.display = "none"
-			document.getElementById('myEventsButton').disabled = true;
-			document.getElementById('allEventsButton').disabled = true;
-			document.getElementById('friendEventsButton').disabled = true;
+			document.getElementById('SharingButton').style.display = "none";
 		};
 
 		$scope.loginEnterKeyCheck = function(event) {
@@ -104,6 +94,8 @@ angular
 			}
 		};
 
+		
+		/*
 		$scope.sharingEnterKeyCheck = function(event) {
 			if (event.which == 13 || event.keyCode == 13) {
 			    $scope.addFriend();
@@ -117,29 +109,6 @@ angular
 		$scope.removeFriend = function () {
 			document.getElementById("friendList").options[document.getElementById("friendList").selectedIndex] = null;
 		};
-		
-		
-		// calendar stuff
-		$scope.ClearCalendar = function() {
-			console.log("inside Clear");
-			$('#calendar').fullCalendar('removeEvents');
-		};
-		
-		$scope.AddToCalendar = function(eventList) {
-			console.log("AddToCalendar")
-			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
-		};
-		
-		$scope.loadEventsFromServer = function(calendarNames) {
-			for(var i = 0; i < calendarNames.length; i++) {
-				$scope.loadEventSourceFromServer(calendarNames[i]);
-			}
-		};
-		
-		$scope.loadEventSourceFromServer = function(url) {
-			$http.get('/events/' + url).success(function(data, status, headers, config) {
-				$scope.AddToCalendar(data);
-			});
-		};
+		*/
 	}
 ]);

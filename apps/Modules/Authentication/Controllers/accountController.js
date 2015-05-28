@@ -93,22 +93,5 @@ angular
 			    $scope.signup();
 			}
 		};
-
-		
-		/*
-		$scope.sharingEnterKeyCheck = function(event) {
-			if (event.which == 13 || event.keyCode == 13) {
-			    $scope.addFriend();
-			}
-		};
-
-		$scope.addFriend = function (ID) {
-			$('#sharingModal').modal('toggle');
-		};
-
-		$scope.removeFriend = function () {
-			document.getElementById("friendList").options[document.getElementById("friendList").selectedIndex] = null;
-		};
-		*/
 	}
 ]);

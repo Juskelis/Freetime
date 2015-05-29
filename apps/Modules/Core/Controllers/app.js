@@ -30,18 +30,39 @@ angular
 		controller: 'AccountCtrl'
 	})
 	*/
+	.when('/event/', {
+		templaceUrl: 'Modules/Event/Views/event.html',
+		controller: 'EventCtrl'
+	})
 	.when('/cal/', {
 		templateUrl: 'Modules/Calendar/Views/calendar.html',
 		controller: 'CalendarCtrl'
 	})
+	/*
 	.when('/share/', {
-		templateUrl: 'Modules/Sharing/Views/sharing.html',
-		controller: 'SharingCtrl'
+		templateUrl: 'Modules/Sharing/Views/sharing.html'
+		//controller: 'SharingCtrl'
 	})
+	*/
 	.otherwise({
 		redirectTo: '/'
 	});
 })
+.service('AccountService', function() {
+	this.SignIn = function() {
+		//send navigate to main request to server,
+		//  which will generate auth system on server side
+		//turn on signout
+	};
+	
+	this.SignOut = function() {
+		//send navigate to splash request to server,
+		//  which will end session on server side
+		//turn off signout
+	};
+});
+
+/*
 .service('CalendarService', function() {
 	this.ClearCalendar = function() {
 		$('#calendar').fullCalendar('removeEvents');
@@ -57,4 +78,5 @@ angular
 			AddToCalendar(data);
 		});
 	};
-});
+})
+*/

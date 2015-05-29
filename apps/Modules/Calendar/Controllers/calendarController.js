@@ -24,16 +24,19 @@ angular
 					right:'today prev,next month,agendaWeek,agendaDay'
 				}
 			});
-			CalendarService.loadEventsFromServer(['self']);
+			//CalendarService.loadEventsFromServer(['self']);
 		};
 		
-		/*
+		
+		//NEED TO LEARN HOW TO LOAD EVENTS FROM SERVER
+		//	update calendar.html when finished
+		
 		// calendar stuff
 		$scope.ClearCalendar = function() {
 			console.log("inside Clear");
 			$('#calendar').fullCalendar('removeEvents');
 		};
-		//possibly change to service
+		
 		$scope.AddToCalendar = function(eventList) {
 			console.log("AddToCalendar")
 			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
@@ -53,6 +56,6 @@ angular
 				$scope.AddToCalendar(data);
 			});
 		};
-		*/
+		
 	}
 ]);

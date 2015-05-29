@@ -12,23 +12,6 @@ angular
 .module('calendarApp')
 .controller('AccountCtrl', ['$scope', '$rootScope', '$http',
 	function($scope,  $rootScope, $http) {
-		$scope.login = function()
-		{
-			//GET userID from DB
-			//if userID -1
-			//	"that's a typo"
-			//else
-			//	$location.path("/cal/");
-		};
-		
-		$scope.signUp = function()
-		{
-			//GET userIS from DB
-			//if userID -1
-			//	thats a typo
-			//else
-			//	$location.path("/cal/");
-		};
 		/*
 		$scope.login = function()
 		{

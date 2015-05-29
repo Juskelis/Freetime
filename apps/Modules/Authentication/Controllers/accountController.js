@@ -14,6 +14,24 @@ angular
 	function($scope,  $rootScope, $http) {
 		$scope.login = function()
 		{
+			//GET userID from DB
+			//if userID -1
+			//	"that's a typo"
+			//else
+			//	$location.path("/cal/");
+		};
+		
+		$scope.signUp = function()
+		{
+			//GET userIS from DB
+			//if userID -1
+			//	thats a typo
+			//else
+			//	$location.path("/cal/");
+		};
+		/*
+		$scope.login = function()
+		{
 			var username = document.getElementById("login-username").value;
 			var password = document.getElementById("login-password").value;
 
@@ -93,5 +111,6 @@ angular
 			    $scope.signup();
 			}
 		};
+		*/
 	}
 ]);

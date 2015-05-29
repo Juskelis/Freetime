@@ -24,10 +24,12 @@ angular
 	.when('/', {
 		templateUrl: 'Modules/Core/Views/welcome.html'
 	})
+	/*
 	.when('/auth/', {
 		templateUrl: 'Modules/Authentication/Views/auth.html',
 		controller: 'AccountCtrl'
 	})
+	*/
 	.when('/cal/', {
 		templateUrl: 'Modules/Calendar/Views/calendar.html',
 		controller: 'CalendarCtrl'

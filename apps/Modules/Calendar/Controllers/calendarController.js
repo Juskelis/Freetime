@@ -24,9 +24,10 @@ angular
 					right:'today prev,next month,agendaWeek,agendaDay'
 				}
 			});
+			CalendarService.loadEventsFromServer(['self']);
 		};
 		
-		
+		/*
 		// calendar stuff
 		$scope.ClearCalendar = function() {
 			console.log("inside Clear");
@@ -52,5 +53,6 @@ angular
 				$scope.AddToCalendar(data);
 			});
 		};
+		*/
 	}
 ]);

@@ -1,28 +1,33 @@
-<div class="input-group input-group-lg">
-	<span class="input-group-addon" id="name">Name</span>
-	<input type="text" class="form-control" ng-model="event.name" placeholder="Event name" aria-describedby="name">
-</div>
-<br>
-<div class="panel panel-default">
-	<div class="panel-body">
-		<form role="form">
-			<div class="input-group input-group-lg">
-				<span class="input-group-addon" id="startDate">Start Date</span>
-				<input type="text" class="form-control" ng-model="event.startDate" placeholder="YYYY-MM-DD" aria-describedby="startDate">
+<div ng-init="init()">
+	<div class="input-group input-group-lg">
+		<span class="input-group-addon" id="name">Name</span>
+		<input type="text" class="form-control" ng-model="event.title" placeholder="Event name" aria-describedby="name">
+	</div>
+	<br>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form role="form">
+				<div class="input-group input-group-lg">
+					<span class="input-group-addon" id="startDate">Start Date</span>
+					<input type="text" class="form-control" ng-model="event.start" placeholder="YYYY-MM-DDThh:mm:ss" aria-describedby="startDate">
+				</div>
+				<br>
+				<!--<div class="input-group input-group-lg">
+					<span class="input-group-addon" id="endDate">End Date</span>
+					<input type="text" class="form-control" ng-model="event.end" placeholder="YYYY-MM-DD" aria-describedby="endDate">
+				</div>-->
+				<br>
+				<div class="form-group">
+					<label for="desc">Description:</label>
+					<textarea class="form-control" rows="5" id="desc" ng-model="event.description" placeholder="Description goes here!"></textarea>
+				</div>
+			</form>
+			<div class="col-md-6 text-right">
+				<button class="btn btn-primary btn-lg" ng-click="deleteEvent(event)">Delete</button>
 			</div>
-			<br>
-			<div class="input-group input-group-lg">
-				<span class="input-group-addon" id="endDate">End Date</span>
-				<input type="text" class="form-control" ng-model="event.endDate" placeholder="YYYY-MM-DD" aria-describedby="endDate">
+			<div class="col-md-6"> 
+				<button class="btn btn-primary btn-lg" ng-click="submitEvent(event)">Submit</button>
 			</div>
-			<br>
-			<div class="form-group">
-				<label for="desc">Description:</label>
-				<textarea class="form-control" rows="5" id="desc" ng-model="event.description" placeholder="Description goes here!"></textarea>
-			</div>
-		</form>
-		<div class="text-right"> 
-			<button class="btn btn-primary btn-lg">Submit</button> 
 		</div>
 	</div>
 </div>

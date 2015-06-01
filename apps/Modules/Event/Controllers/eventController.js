@@ -23,10 +23,9 @@ angular
 		*/
 		$scope.submitEvent = function(event) {
 			if($scope.event.title.length > 0
-				&& $scope.event.start.length > 0)
+				&& $scope.event.startDate.length > 0)
 			{
-				
-				$http.put('/$scope.event.id',event).success(function(data, status, headers, config) {
+				$http.put('/event/$scope.event.id',event).success(function(data, status, headers, config) {
 					/*
 						CODE ON SUCCESS
 					*/
@@ -36,7 +35,7 @@ angular
 		
 		$scope.deleteEvent = function(event) {
 			//no validation required
-			$http.delete('/$scope.event.id', event).success(function(data,status,headers,config) {
+			$http.delete('/event/$scope.event.id', event).success(function(data,status,headers,config) {
 				/*
 					CODE ON SUCCESS
 				*/

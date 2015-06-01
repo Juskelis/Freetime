@@ -85,6 +85,12 @@ angular
 			*/
 			
 			/*
+				all:	GET /cal/
+				self:	GET /cal/self
+				friends:GET /cal/friends
+			*/
+			
+			/*
 			-----original parameter was calendarNames-----
 			$scope.ClearCalendar();
 			console.log("inside loadEventsFromServer");
@@ -105,6 +111,8 @@ angular
 			
 			/*
 				post eventList to server
+				
+				PUT /cal/save/
 			*/
 		};
 		

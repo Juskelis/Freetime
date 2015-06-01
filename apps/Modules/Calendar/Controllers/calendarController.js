@@ -37,7 +37,7 @@ angular
 					$scope.saveEventsToServer();
 				}
 			});
-			//CalendarService.loadEventsFromServer(['self']);
+			CalendarService.loadEventsFromServer('');
 		};
 		
 		//NEED TO LEARN HOW TO LOAD EVENTS FROM SERVER
@@ -49,9 +49,9 @@ angular
 		};
 		
 		$scope.AddToCalendar = function(eventList) {
-			/*
+			/*	assumptions
 				this is assuming that returned data from server will be
-					list of eventList objects
+					list of eventList objects w/ user always first
 				If it is not, we need to change this.
 			*/
 			
@@ -70,27 +70,32 @@ angular
 		};
 		
 		//
-		$scope.loadEventsFromServer = function(calendarIDs) {
-			/*
+		$scope.loadEventsFromServer = function(calendarFlag) {
+			/*	assumptions
 				generate url needed (based on whatever server expects)
 				for this we have access to:
 					userID
 					flag for which calendars to call (all, user, friends)
 					
-				next, send that url to $http.get and expects:
+				next, send that url to $http.get and expect as return:
 					array of eventSource objects
 					first element is ALWAYS user's own events
 						if loading only friends, make first element null
 				callback calls AddToCalendar with returned object
 			*/
 			
-			/*
+			/*	routes
 				all:	GET /cal/
 				self:	GET /cal/self
 				friends:GET /cal/friends
 			*/
 			
-			/*
+			var call = "/cal/" + calendarFlag;
+			$http.get(call).success(function(data, status, headers, config) {
+				$scope.AddToCalendar(data);
+			});
+			
+			/* old version
 			-----original parameter was calendarNames-----
 			$scope.ClearCalendar();
 			console.log("inside loadEventsFromServer");
@@ -109,14 +114,18 @@ angular
 				return evt.color == "rgb(0,255,0)";
 			});
 			
-			/*
+			/*	routes
 				post eventList to server
 				
 				PUT /cal/save/
 			*/
+			
+			$http.put('/cal/save/', events).success(function(data, status, headers, config) {
+				console.log("saved calendar");
+			});
 		};
 		
-		/*
+		/* old stuff
 		//put in server
 		$scope.loadEventSourceFromServer = function(url) {
 			$http.get('/events/' + url).success(function(data, status, headers, config) {
@@ -124,20 +133,20 @@ angular
 				$scope.AddToCalendar(data);
 			});
 		};
-	this.ClearCalendar = function() {
-		$('#calendar').fullCalendar('removeEvents');
-	};
-	
-	this.AddToCalendar = function(eventList) {
-		$('#calendar').fullCalendar('addEventSource', eventList[0].events);
-	};
-	
-	// this function needs to be modified in the future
-	this.loadEventsFromServer = function() {
-		$http.get('/events/' + url).success(function(data, status, headers, config) {
-			AddToCalendar(data);
-		});
-	};
+		this.ClearCalendar = function() {
+			$('#calendar').fullCalendar('removeEvents');
+		};
+		
+		this.AddToCalendar = function(eventList) {
+			$('#calendar').fullCalendar('addEventSource', eventList[0].events);
+		};
+		
+		// this function needs to be modified in the future
+		this.loadEventsFromServer = function() {
+			$http.get('/events/' + url).success(function(data, status, headers, config) {
+				AddToCalendar(data);
+			});
+		};
 		*/
 	}
 ]);

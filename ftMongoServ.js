@@ -1,4 +1,5 @@
 var express = require('express')
+  , mongoose = require('mongoose')
   , passport = require('passport')
   , util = require('util')
   , ejs = require('ejs')
@@ -40,7 +41,7 @@ console.log(mongoDBConnection.uri);
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-	callbackURL: "http://me.localtest.me:3000/auth/facebook/callback"
+	callbackURL: "http://me.localtest.me/auth/facebook/callback"
   },
   function	(accessToken, refreshToken, profile, done) {
     //User.find({uId: profile.id}, function(err, user) {
@@ -92,7 +93,8 @@ mongoose.connection.on('open', function() {
 			uID: Number,
 			calendarId: Number,
 			hashedPW: String,
-			fcalendarIDs[{
+			fcalendarIDs: [
+			{
 				fID: Number
 			}
 			]
@@ -143,7 +145,7 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/cal/');
   });
 
   
@@ -200,6 +202,17 @@ function UpdateEvent(res, userID, eID, event) {
 	*/
 }
 
+//literally just the my events
+ function getAllEvents(req, res){
+	 curId = req.user.id;
+	 query = Calendars.findOne({uID: curID});
+	 query.exec(function (err, itemArray) {
+		displayDBError(err);
+		console.log("result: " + itemArray);
+		res.json(itemArray);
+	});
+ }
+
  function getMyEvents(req, res){
 	 curId = req.user.id;
 	 query = Calendars.findOne({uID: curID});
@@ -212,7 +225,7 @@ function UpdateEvent(res, userID, eID, event) {
  
  function getFriendEvents(req,res){
 	 curID = req.session.user.id;
-	 query = Calendars.find({events}).where('calId').in(Users.fcalendarIDs);
+	 query = Calendars.find({}).where('calendarID').in(Users.fcalendarIDs);
 	 query.exec(function (err, itemArray) {
 		displayDBError(err);
 		console.log("result: " + itemArray);
@@ -230,19 +243,18 @@ app.use('/eventSources/', express.static('./eventsources'));
 app.get('/cal/', function (req, res){
 	var id = req.params.uID;
 	console.log("get all events");
-	getAllEvents(res, uID: id);
+	getAllEvents(res);
 });
 
 app.get('/cal/self',function (req, res){
 	var id = req.params.uID;
-	console.log("get all events");
-	getAllEvents(res, uID: id);
+	console.log("get my events");
+	getMyEvents(res);
 });
 
 app.get('/cal/friends',function (req, res){
-	var id = req.params.uID;
-	console.log("get all events");
-	getAllEvents(res, uID: id);
+	console.log("get friend events");
+	getFriendEventsEvents(res);
 });
 
 //loading and editing events
@@ -262,9 +274,12 @@ app.put('/app/lists/:listId', jsonParser, function(req, res) {
 
 app.put('/event/:eID', jsonParser, function (req, res){
 	var eventId = req.params.eID;
+	Calendars.update({});
 	
-	Calendars.update({
-	
+});
+
+app.post('event/:eID', jsonParser, function(req,res){
+
 });
  
  app.delete('/event/:eID', jsonParser, function (req, res){

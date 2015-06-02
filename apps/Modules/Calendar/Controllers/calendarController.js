@@ -70,7 +70,7 @@ angular
 			*/
 			for(var i = 0; i < eventList.length; i++) {
 				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
-			
+			}
 		};
 		
 		//

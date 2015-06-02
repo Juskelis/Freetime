@@ -146,13 +146,9 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
-<<<<<<< HEAD
-    res.redirect('/cal/');
-=======
 	  //not calling redirect because it is handled 
 	  //	in login service
     //res.redirect('#/cal/');
->>>>>>> origin/Mongo-Server
   });
   
 app.get('logout', function(req, res){

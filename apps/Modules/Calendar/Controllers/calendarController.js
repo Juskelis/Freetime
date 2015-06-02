@@ -67,14 +67,6 @@ angular
 			for(var i = 0; i < eventList.length; i++) {
 				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
 			}
-<<<<<<< HEAD
-			*/
-			for(var i = 0; i < eventList.length; i++) {
-				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
-			}
-=======
-			
->>>>>>> origin/Mongo-Server
 		};
 		
 		//

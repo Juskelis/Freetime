@@ -53,7 +53,7 @@ angular
 				this is assuming that returned data from server will be
 					list of eventList objects w/ user always first
 				If it is not, we need to change this.
-			*/
+			
 			
 			//loop through first list and change color to blue
 			for(var i = 0; i < eventList[0].length; i++) {
@@ -67,6 +67,10 @@ angular
 			for(var i = 0; i < eventList.length; i++) {
 				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
 			}
+			*/
+			for(var i = 0; i < eventList.length; i++) {
+				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
+			
 		};
 		
 		//

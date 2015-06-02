@@ -26,9 +26,7 @@ angular
 				&& $scope.event.startDate.length > 0)
 			{
 				$http.put('/event/$scope.event.id',event).success(function(data, status, headers, config) {
-					/*
-						CODE ON SUCCESS
-					*/
+					$location.path('/cal/')
 				});
 			}
 		};
@@ -36,9 +34,7 @@ angular
 		$scope.deleteEvent = function(event) {
 			//no validation required
 			$http.delete('/event/$scope.event.id', event).success(function(data,status,headers,config) {
-				/*
-					CODE ON SUCCESS
-				*/
+				$location.path('/cal/')
 			});
 		};
 	}

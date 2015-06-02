@@ -22,20 +22,20 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var Users;
-var Calendars;
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
 
 //put config url behind file to hide passwords and username
 var mongoDBConnection = require('./db.ftSample.config');
 
 console.log(mongoDBConnection.uri);
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 
 
 passport.use(new FacebookStrategy({
@@ -82,7 +82,8 @@ var server = http.createServer(app);
 
 
 
-
+var Users;
+                           
 
 mongoose.connect(mongoDBConnection.uri);
 mongoose.connection.on('open', function() {
@@ -157,7 +158,7 @@ app.get('/auth/facebook/callback',
  //then find that calendar
  //then find the specific  event that needs to be changed
  function DeleteEvent(req, res, eID) {
-	var curID = req.session.user.id;
+	var curID = req.user;
 	var calQuery = Users.findOne({uID: curID});
 	calQuery.exec(function(err,user) {
 		if(!err) {
@@ -180,7 +181,7 @@ app.get('/auth/facebook/callback',
 function UpdateEvent(res, userID, eID, event) {
 
 	//gets the calendarID from the user
-	var curID = req.session.user.id;
+	var curID = req.user;
 	var calQuery = Users.find({uID: curID});
 	calQuery.exec(function(err, user) {
 		if(!err) {
@@ -204,17 +205,16 @@ function UpdateEvent(res, userID, eID, event) {
 
 //literally just the my events
  function getAllEvents(req, res){
-	 curId = req.user.id;
-	 query = Calendars.findOne({uID: curID});
+	 query = Calendars.findOne({uID: req.user});
 	 query.exec(function (err, itemArray) {
-		displayDBError(err);
+		//displayDBError(err);
 		console.log("result: " + itemArray);
 		res.json(itemArray);
 	});
  }
 
  function getMyEvents(req, res){
-	 curId = req.user.id;
+	 curId = req.fbUser.id;
 	 query = Calendars.findOne({uID: curID});
 	 query.exec(function (err, itemArray) {
 		displayDBError(err);
@@ -241,9 +241,7 @@ app.use('/eventSources/', express.static('./eventsources'));
 	
  //loading calendars
 app.get('/cal/', function (req, res){
-	var id = req.params.uID;
-	console.log("get all events");
-	getAllEvents(res);
+	getAllEvents(req,res);
 });
 
 app.get('/cal/self',function (req, res){

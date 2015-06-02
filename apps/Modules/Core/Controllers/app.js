@@ -50,15 +50,15 @@ angular
 })
 .service('AccountService', function() {
 	this.SignIn = function() {
-		//send navigate to main request to server,
-		//  which will generate auth system on server side
-		//turn on signout
+		$http.get('/auth/facebook').success(function(data, status, headers, config) {
+			$location.path('/cal/');
+		};
 	};
 	
 	this.SignOut = function() {
-		//send navigate to splash request to server,
-		//  which will end session on server side
-		//turn off signout
+		$http.get('/logout').success(function(data, status, headers, config) {
+			$location.path('/');
+		});
 	};
 });
 

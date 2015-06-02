@@ -83,7 +83,7 @@ var server = http.createServer(app);
 
 
 var Users;
-                           
+var Calendars                  
 
 mongoose.connect(mongoDBConnection.uri);
 mongoose.connection.on('open', function() {
@@ -214,24 +214,26 @@ function UpdateEvent(res, userID, eID, event) {
  function getAllEvents(req, res){
 	 query = Calendars.findOne({uID: req.user});
 	 query.exec(function (err, itemArray) {
-		//displayDBError(err);
-		console.log("result: " + itemArray);
-		res.json(itemArray);
-	});
- }
-
- function getMyEvents(req, res){
-	 curId = req.fbUser.id;
-	 query = Calendars.findOne({uID: curID});
-	 query.exec(function (err, itemArray) {
 		displayDBError(err);
 		console.log("result: " + itemArray);
 		res.json(itemArray);
 	});
  }
  
+ function getMyEvents(req, res){
+	 var calQuery = Users.findOne().where('uID').equals(req.res);
+	 query = Calendars.findOne({}).where('calID').equals()
+	 userQuery.exec(function (err, ) {
+		//displayDBError(err);
+		console.log("result: " + itemArray);
+		res.json(itemArray);
+		
+	});
+ }
+
+
  function getFriendEvents(req,res){
-	 curID = req.session.user.id;
+	 var curID = req.user;
 	 query = Calendars.find({}).where('calendarID').in(Users.fcalendarIDs);
 	 query.exec(function (err, itemArray) {
 		displayDBError(err);

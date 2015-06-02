@@ -53,24 +53,28 @@ angular
 				this is assuming that returned data from server will be
 					list of eventList objects w/ user always first
 				If it is not, we need to change this.
-			
+			*/
 			
 			//loop through first list and change color to blue
 			for(var i = 0; i < eventList[0].length; i++) {
-				eventList[0][i].color = "rgb(0,255,0)";
+				eventList[0][i].color = "rgb(0,0,255)";
 			}
-			for(var i = 0; i < eventList.length - 1; i++) {
+			for(var i = 1; i < eventList.length; i++) {
 				for(var v = 0; i < eventList[i].length; v++) {
-					eventList[i][v].color = "rgb(0,0,255)";
+					eventList[i][v].color = "rgb(255,0,0)";
 				}
 			}
 			for(var i = 0; i < eventList.length; i++) {
 				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
 			}
+<<<<<<< HEAD
 			*/
 			for(var i = 0; i < eventList.length; i++) {
 				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
 			}
+=======
+			
+>>>>>>> origin/Mongo-Server
 		};
 		
 		//
@@ -112,10 +116,10 @@ angular
 		//only called when pre-existing events change (aka they are dragged/resized)
 		$scope.saveEventsToServer = function() {
 			//color of user's events
-			var filter_color = "rgb(0,255,0)";
+			var filter_color = "rgb(0,0,255)";
 			
 			var events = $('calendar').fullCalendar('clientEvents', function(evt) {
-				return evt.color == "rgb(0,255,0)";
+				return evt.color == filter_color;
 			});
 			
 			/*	routes

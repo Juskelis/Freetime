@@ -33,13 +33,17 @@ angular
 				},
 				
 				eventDrop: function(event, delta) {
-					console.log("Drop");
-					//$scope.saveEventsToServer();
+					if(event.uID == $scope.user) {
+						console.log("Drop");
+						//$scope.saveEventsToServer();
+					}
 				},
 				
 				eventResize: function(event, delta) {
-					console.log("Drop");
-					//$scope.saveEventsToServer();
+					if(event.uID == $scope.user) {
+						console.log("Resize");
+						//$scope.saveEventsToServer();
+					}
 				}
 			});
 			$scope.loadEventsFromServer('');
@@ -105,6 +109,15 @@ angular
 						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
 							event.uID = cal.uID;
+							event.editable = event.uID == $scope.user;
+							if(event.editable) {
+								//event.color = "rgb(58,135,173)";
+								event.color = "rgb(137,225,35)";
+							}
+							else {
+								event.color = "rgb(58,135,173)";
+								//event.color = "rgb(202,113,10)";
+							}
 							eventList.push(event);
 						}
 					}

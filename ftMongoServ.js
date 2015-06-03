@@ -153,22 +153,13 @@ app.get('logout', function(req, res){
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
-			console.log(foundUser.calendarIDs);
 			var arr = [];
 			for (i = 0; i < foundUser.calendarIDs.length; i++){
 				arr.push(foundUser.calendarIDs[i].cID);
 			}
 			var fcalQuery = Calendars.where('calendarID').in('calendarID', arr);
 			
-			console
-			.log(arr);
 			
-			console.log(arr);
-			console.log(arr);
-			console.log(arr);
-			console.log(arr);
-			console.log(arr);
-			console.log(arr);
 			fcalQuery.exec(function(err, cal) {
 				if(!err) {
 					console.log(cal);
@@ -188,10 +179,8 @@ function getMyEvents(req, res){
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
-			console.log(foundUser.calendarIDs);
 			var arr = [];
 			arr.push(foundUser.calendarIDs[0].cID);
-			console.log(arr);
 			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
 			
 			fcalQuery.exec(function(err, cal) {
@@ -205,6 +194,10 @@ function getMyEvents(req, res){
 				}
 				});
 		}
+		else{
+			console.log("ERROR");
+			res.json();
+			}
 	});
 }
 function getFriendEvents(req, res) {
@@ -233,7 +226,7 @@ function getFriendEvents(req, res) {
 }
 
 
-function 	saveCalendar(req,res, eventList){
+function saveCalendar(req,res, eventList){
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err && foundUser != null) {
@@ -324,8 +317,10 @@ app.get('/cal/friends',function (req, res){
 
 
 app.put('/cal/save/', jsonParser, function (req,res){
+
 	console.log('saving current calendar');
 	eventList = req.body;
+	console.log(eventList);
 	saveCalendar(req,res, eventList);
 });
 

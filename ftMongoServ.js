@@ -152,67 +152,74 @@ app.get('logout', function(req, res){
 	 
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
-		
-	    if(!err) {
+		if(!err) {
 			console.log(foundUser.calendarIDs);
-			
-			//var fcalQuery = Calendars.where('calendarID').in(foundUser.calendarIDs);
-			var fcalQuery = Calendars.where('calendarID').in('calendarID',[1,2,3] );
+			var arr = [];
+			for (i = 0; i < foundUser.calendarIDs.length; i++){
+				arr.push(foundUser.calendarIDs[i].cID);
+			}
+			var fcalQuery = Calendars.where('calendarID').in('calendarID', arr);
 			
 			fcalQuery.exec(function(err, cal) {
-				console.log(cal);
-				console.log("got in here");
 				if(!err) {
-					console.log("got in here");
 					console.log(cal);
 					res.json(cal);
 					}
 				else{
 					console.log("ERROR");
+					res.json();
 				}
 				});
 		}
-		
-	//res.json(responseArray);
 	});
 }
 
 
-function getMyEvents(req, res) {
-	var responseArray = [];
+function getMyEvents(req, res){
 	var userQuery = Users.findOne({uID: req.user});
-	userQuery.exec(function (err, user) {
+	userQuery.exec(function (err, foundUser) {
 		if(!err) {
-			var calQuery = Calendars.findOne({calendarID: user.calendarID});
-			calQuery.exec(function(err, cal) {
-				if(!err) {	
-					responseArray.push(cal.events);
-				}
-			});
-		}
-	});
-	
-	res.json(responseArray);
-}
-
-function getFriendEvents(req, res) {
-	var responseArray = [];
-	var userQuery = Users.findOne({uID: req.user});
-	userQuery.exec(function (err, user) {
-		if(!err) {
-			responseArray.push([]);
-			for(var i in user.fcalendarIDs) {
-				var fcalQuery = Calendars.findOne({calendarID: user.fcalendarIDs[i]});
-				fcalQuery.exec(function(err, cal) {
-					if(!err) {
-						responseArray.push(cal.events);
+			console.log(foundUser.calendarIDs);
+			var arr = [];
+			arr.push(foundUser.calendarIDs[0].cID);
+			var fcalQuery = Calendars.where('calendarID').in('calendarID', arr);
+			
+			fcalQuery.exec(function(err, cal) {
+				if(!err) {
+					console.log(cal);
+					res.json(cal);
 					}
+				else{
+					console.log("ERROR");
+					res.json();
+				}
 				});
-			}
 		}
 	});
-	
-	res.json(responseArray);
+}
+function getFriendEvents(req, res) {
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		if(!err) {
+			console.log(foundUser.calendarIDs);
+			var arr = [];
+			for (i = 1; i < foundUser.calendarIDs.length; i++){
+				arr.push(foundUser.calendarIDs[i].cID);
+			}
+			var fcalQuery = Calendars.where('calendarID').in('calendarID', arr);
+			
+			fcalQuery.exec(function(err, cal) {
+				if(!err) {
+					console.log(cal);
+					res.json(cal);
+					}
+				else{
+					console.log("ERROR");
+					res.json();
+				}
+				});
+		}
+	});
 }
 
 
@@ -268,17 +275,17 @@ app.use('/eventSources/', express.static('./eventsources'));
  //loading calendars
 app.get('/cal/', function (req, res){
 	console.log("get all events");
-	getAllEvents(req,res);
+	getFriendEvents(req,res);
 });
 
 app.get('/cal/self',function (req, res){
 	console.log("get my events");
-	getMyEvents(res);
+	getMyEvents(req,res);
 });
 
 app.get('/cal/friends',function (req, res){
 	console.log("get friend events");
-	getFriendEventsEvents(res);	
+	getFriendEvents(res);	
 });
 
 

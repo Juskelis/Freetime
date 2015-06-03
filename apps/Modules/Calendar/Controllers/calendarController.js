@@ -56,6 +56,7 @@ angular
 			*/
 			
 			//loop through first list and change color to blue
+			/*
 			for(var i = 0; i < eventList[0].length; i++) {
 				eventList[0][i].color = "rgb(0,0,255)";
 			}
@@ -64,6 +65,7 @@ angular
 					eventList[i][v].color = "rgb(255,0,0)";
 				}
 			}
+			*/
 			for(var i = 0; i < eventList.length; i++) {
 				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
 			}
@@ -108,10 +110,9 @@ angular
 		//only called when pre-existing events change (aka they are dragged/resized)
 		$scope.saveEventsToServer = function() {
 			//color of user's events
-			var filter_color = "rgb(0,0,255)";
 			
 			var events = $('calendar').fullCalendar('clientEvents', function(evt) {
-				return evt.color == filter_color;
+				return evt.uID == user.id;
 			});
 			
 			/*	routes

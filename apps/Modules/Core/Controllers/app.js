@@ -52,7 +52,7 @@ angular
 	this.SignIn = function() {
 		$http.get('/auth/facebook').success(function(data, status, headers, config) {
 			$location.path('/cal/');
-		};
+		});
 	};
 	
 	this.SignOut = function() {

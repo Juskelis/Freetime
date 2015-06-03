@@ -9,7 +9,6 @@
 		  name: "Francis Time",
 		  uID: 10204294063808640,
 		  calendarID: 3,
-		  hashedPW: "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
 		  fCalendarIDs:[
 		  {
 			  fID:1
@@ -23,9 +22,8 @@
 	userCollection.insert(
 	{
 		  name: "Fred Time",
-		  uID:1,
-		  calendarId: 1,
-		  hashedPW: "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
+		  uID: 10207174424383277,
+		  calendarID: 1,
 		  fCalendarIDs:[
 		  {
 			fID: 2
@@ -37,31 +35,21 @@
 	
 	userCollection.insert(
 	{  
-		  name: "Frank Time",
-		  uID: 3,
+		  name: "Silverman",
+		  uID: 10207082729414692,
 		  calendarID: 2,
-		  hashedPW: "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
 		  fCalendarIDs:[{
 		  }
 		  ]
 	}
 	)
 
-
-user1 = userCollection.findOne({name: 'Francis Time'})
-user1Id = user1._id.valueOf();
-user2 = userCollection.findOne({username: 'Fred Time'})
-user2Id = user2._id.valueOf();
-user3 = userCollection.findOne({username: 'Frank'})
-user3Id = user3._id.valueOf();	
-	
-
 	db.createCollection('calendars')
 	calendarsCollection = db.getCollection("calendars")
 	calendarsCollection.remove({})
 	calendarsCollection.insert(
 	{
-		calendarId : 1,
+		calendarID : 1,
 		events : [
 		 {
 			title: "My Dinner",
@@ -99,7 +87,7 @@ user3Id = user3._id.valueOf();
 
 	calendarsCollection.insert(
 	{
-		calendarId : 3,
+		calendarID : 3,
 		events : [
 		 {
 			title: "Misc",
@@ -137,8 +125,8 @@ user3Id = user3._id.valueOf();
 
 	calendarsCollection.insert(
 	{
-		calendarId : 2,
-		events : [
+		calendarID: 2,
+		events: [
 		{
 			title: "Hiking to see the trees",
 			description: "trees",

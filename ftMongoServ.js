@@ -230,21 +230,13 @@ function saveCalendar(req,res, eventList){
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
-			var query = Calendars.findOneAndUpdate({calendarID : req.user}, eventList, {upsert: true});
-			query.exec();
-			/*
-			Calendars.findOne({calendarID : req.user}, function(err,doc){
-				if(!err){
-					doc.events = eventList;
-					doc.save(callback);
-					res.sendStatus(200);
-				}
-				else{
-					console.log("ERROR");
-					res.sendStatus(404);
+			Calendars.findOneAndUpdate({calendarID: JSON.stringify(foundUser.calendarIDs[0]).replace( /\D+/g, '')} , {$set: {events: eventList}}, function (err, result) {
+				if(err){
+					console.log(err);
+				} else {
+					console.log ("Noice. ");
 				}
 			});
-			*/
 		}
 	});
 }

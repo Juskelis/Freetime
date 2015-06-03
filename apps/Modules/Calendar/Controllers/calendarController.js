@@ -26,17 +26,17 @@ angular
 				
 				eventClick: function(event, element) {
 					if(event.uID == user) {
-						$rootScope.event = event;
+						//$rootScope.event = event;
 						$location.path('#/eventDetails/');
 					}
 				},
 				
 				eventDrop: function(event, delta) {
-					$scope.saveEventsToServer();
+					//$scope.saveEventsToServer();
 				},
 				
 				eventResize: function(event, delta) {
-					$scope.saveEventsToServer();
+					//$scope.saveEventsToServer();
 				}
 			});
 			$scope.loadEventsFromServer('');

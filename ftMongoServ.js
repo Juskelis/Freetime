@@ -92,9 +92,9 @@ mongoose.connection.on('open', function() {
 		{
 			name: String,
 			uID: Number,
-			calendarId: Number,
+			calendarID: Number,
 			hashedPW: String,
-			fcalendarIDs: [
+			fCalendarIDs: [
 			{
 				fID: Number
 			}
@@ -107,7 +107,7 @@ mongoose.connection.on('open', function() {
 	
 	var calendarSchema = new Schema( 
 		{
-			calendarId: Number,
+			calendarID: Number,
 			events: [ {
 			   title: String,
 			   description: String,
@@ -125,12 +125,6 @@ mongoose.connection.on('open', function() {
 	console.log('models have been created');
 });
 //------------------------------------------------------------------------------------------------------------------------------
-
-// GET /auth/facebook 
-//   Use passport.authenticate() as route middleware to authenticate the 
-//   request.  The first step in Facebook authentication will involve 
-//   redirecting the user to facebook.com.  After authorization, Facebook will 
-//   redirect the user back to this application at /auth/facebook/callback 
 app.get('/auth/facebook',
   passport.authenticate('facebook', { scope: ['public_profile'] }),
   function(req, res){
@@ -138,17 +132,10 @@ app.get('/auth/facebook',
     // this function will not be called.
   });
 
-// GET /auth/facebook/callback 
-//   Use passport.authenticate() as route middleware to authenticate the 
-//   request.  If authentication fails, the user will be redirected back to the 
-//   login page.  Otherwise, the primary route function function will be called, 
-//   which, in this example, will redirect the user to the home page. 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-	  //not calling redirect because it is handled 
-	  //	in login service
-    //res.redirect('#/cal/');
+    res.redirect('/cal/');
   });
   
 app.get('logout', function(req, res){
@@ -161,77 +148,92 @@ app.get('logout', function(req, res){
  //FUNCTIONS
  //-----------------------------------------------------------------------------------------------------------
  
- //User has their own calendar with ID, find that
- //then find that calendar
- //then find the specific  event that needs to be changed
- function DeleteEvent(req, res, eID) {
-	var curID = req.user;
-	var calQuery = Users.findOne({uID: curID});
-	calQuery.exec(function(err,user) {
+
+
+ function getAllEvents(req, res) {
+	var responseArray = [];
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, user) {
 		if(!err) {
-			var calID = Users.calendarId;
-			var query = Calendars.update({calendarId: calID}, {$pull: { events:{id: eID}}});
-			query.exec(function(err, numOfDocsChanged) {
-				console.log("Changed " + numOfDocsChanged);
+			var calQuery = Calendars.findOne({calendarID: user.calendarID});
+			calQuery.exec(function(err, cal) {
+				if(!err) {	
+					responseArray.push(cal.events);
+				}
+			});
+			for(var i in user.fcalendarIDs) {
+				var fcalQuery = Calendars.findOne({calendarID: user.fcalendarIDs[i]});
+				fcalQuery.exec(function(err, cal) {
+					if(!err) {
+						responseArray.push(cal.events);
+					}
+				});
+			}
+		}
+	});	
+	res.json(responseArray);
+}
+
+
+function getMyEvents(req, res) {
+	var responseArray = [];
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, user) {
+		if(!err) {
+			var calQuery = Calendars.findOne({calendarID: user.calendarID});
+			calQuery.exec(function(err, cal) {
+				if(!err) {	
+					responseArray.push(cal.events);
+				}
 			});
 		}
 	});
-	/*
-	var query = Calendars.update({calendarId: calID}, {$pull: { events:{id: eID}}});
-	query.exec(function(err, numOfDocsChanged) {
-		console.log("Changed " + numOfDocsChanged);
-	});
-	*/
+	
+	res.json(responseArray);
 }
 
-//I think this might be better handled without a function, just in the call proper
-function UpdateEvent(res, userID, eID, event) {
-
-	//gets the calendarID from the user
-	var curID = req.user;
-	var calQuery = Users.find({uID: curID});
-	calQuery.exec(function(err, user) {
+function getFriendEvents(req, res) {
+	var responseArray = [];
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, user) {
 		if(!err) {
-			var calID = user.calendarId;
-			/*
-				performs the update on the given eID in the given calID
-			*/
+			responseArray.push([]);
+			for(var i in user.fcalendarIDs) {
+				var fcalQuery = Calendars.findOne({calendarID: user.fcalendarIDs[i]});
+				fcalQuery.exec(function(err, cal) {
+					if(!err) {
+						responseArray.push(cal.events);
+					}
+				});
+			}
 		}
 	});
 	
-	/*
-	var query = Calendars.update(
-		{calendarId: calID, events.id: eID},
-		{$set:
-			{
-			}
-		}
-	);
-	*/
+	res.json(responseArray);
 }
 
-//literally just the my events
+
+
+
+
+
+/*
  function getAllEvents(req, res){
-	 query = Calendars.findOne({uID: req.user});
-	 query.exec(function (err, itemArray) {
-		displayDBError(err);
-		console.log("result: " + itemArray);
-		res.json(itemArray);
-	});
- }
- 
- function getMyEvents(req, res){
-	 var calQuery = Users.findOne().where('uID').equals(req.res);
-	 query = Calendars.findOne({}).where('calID').equals()
-	 userQuery.exec(function (err, ) {
+	 var calQuery = Users.findOne({uID: req.user});
+	 var test = []; 
+	 calQuery.exec(function (err, foundUser) {
 		//displayDBError(err);
-		console.log("result: " + itemArray);
-		res.json(itemArray);
-		
+		console.log(foundUser);
+		console.log(foundUser.calendarID);
+		var foundCalID = foundUser.calendarID;
+		var query = Calendars.findOne({calendarID: foundCalID})
+		query.exec(function (err, itemArray){
+			console.log("result: " + itemArray);
+		});
 	});
  }
 
-
+ 
  function getFriendEvents(req,res){
 	 var curID = req.user;
 	 query = Calendars.find({}).where('calendarID').in(Users.fcalendarIDs);
@@ -241,7 +243,19 @@ function UpdateEvent(res, userID, eID, event) {
 		res.json(itemArray);
 	});
  }	
-
+ 
+ 
+ 
+  function getMyEvents(req, res){
+	 query = Calendars.findOne({uID: req.user});
+	 query.exec(function (err, itemArray) {
+		displayDBError(err);
+		console.log("result: " + itemArray);
+		res.json(itemArray);
+	});
+ }
+ 
+*/
 app.use('/', express.static('./apps/'));
 app.use('/eventSources/', express.static('./eventsources'));	
 	
@@ -250,120 +264,110 @@ app.use('/eventSources/', express.static('./eventsources'));
 	
  //loading calendars
 app.get('/cal/', function (req, res){
+	console.log("get all events");
 	getAllEvents(req,res);
 });
 
 app.get('/cal/self',function (req, res){
-	var id = req.params.uID;
 	console.log("get my events");
 	getMyEvents(res);
 });
 
 app.get('/cal/friends',function (req, res){
 	console.log("get friend events");
-	getFriendEventsEvents(res);
+	getFriendEventsEvents(res);	
 });
 
-//loading and editing events
+
 /*
-app.put('/app/lists/:listId', jsonParser, function(req, res) {
-	var id = req.params.listId;
-	var jsObj = req.body;
-	jsObj.owner = req.session.user;
-	Lists.update({listId: id}, jsObj, {multi: false}, function (err) {
-		if (err) {
-			console.log('object update failed');
+	What I'm doing:
+		getting all the data I need at the beginning (eventID, actual event object, userID)
+		get the user in the DB with userID
+		get calendar user calendarId in user
+		edit returned calendar
+			loop through event list and overwrite events with same eventID
+		Update calendars DB with new calendar
+*/
+app.put('/event/:eID', jsonParser, function(req, res){
+	var eventID = req.params.eID;
+	var event = req.body;
+	var curID = req.user.id;
+	var calQuery = Users.findOne({uID: curID});
+	calQuery.exec(function(err, user) {
+		if(!err) {
+			var calID = user.calendarId;
+			var eventListQuery = Calendars.findOne({calendarId: calID});
+			eventListQuery.exec(function(err, cal) {
+				if(!err) {
+					var evList = cal.events;
+					for(var i in evList) {
+						if(evList[i].id == eventID)
+							evList[i] = event;
+					}
+					cal.events = evList;
+					Calendars.Update({calendarId: calID}, cal, {multi:false}, function(err) {
+						if(err) {
+							console.log("error updating events in calendar");
+						}
+					});
+				}
+			});
 		}
 	});
-	res.sendStatus(200);
 });
+/*
+	What I'm doing:
+		getting all the data I need at the beginning (eventID, actual event object, userID)
+		get the user in the DB with userID
+		get calendar user calendarId in user
+		edit returned calendar
+			push new event onto event list
+		Update calendars DB with new calendar
 */
-
-app.put('/event/:eID', jsonParser, function (req, res){
-	var eventId = req.params.eID;
-	Calendars.update({});
-	
+app.post('/event/:eID', jsonParser, function(req, res){
+	var eventID = req.params.eID;
+	var event = req.body;
+	var curID = req.user.id;
+	var calQuery = Users.findOne({uID: curID});
+	calQuery.exec(function(err, user) {
+		if(!err) {
+			var calID = user.calendarId;
+			var eventListQuery = Calendars.findOne({calendarId: calID});
+			eventListQuery.exec(function(err, cal) {
+				if(!err) {
+					var evList = cal.events;
+					evList.push(event);
+					cal.events = evList;
+					Calendars.Update({calendarId: calID}, cal, {multi: false}, function(err) {
+						if(err) {
+							console.log("error creating new event in calendar");
+						}
+					});
+				}
+			});
+		}
+	});
 });
 
-app.post('event/:eID', jsonParser, function(req,res){
 
+/*
+	get current user
+	get current calendar and remove events with eventID
+*/
+app.delete('/event/:eID', function(req, res) {
+	var eventID = req.params.eID;
+	var curID = req.user.id;
+	var calQuery = Users.findOne({uID: curID});
+	calQuery.exec(function(err, user) {
+		if(!err) {
+			var calID = user.calendarID;
+			var query = Calendars.update({calendarId: calID}, {$pull: { events:{id:eventID}}});
+			query.exec(function(err, numOfDocsChanged) {
+				console.log("Changed " + numOfDocsChanged);
+			});
+		}
+	});
 });
- 
- app.delete('/event/:eID', jsonParser, function (req, res){
-	 
-});
- 
- 
- 
+  
  
 app.listen(80);
- 
- //-----------------------------------------------------------------------------------------------------------
- 
- 
- 
- 
- 
- 
-/*
-
-function getMyEvents(res){
-	
-	console.log("inside get my events");
-	var query = Events.find({eventListId:1});
-	query.exec(function (err, itemArray) {
-		res.json(itemArray);
-	});
-}
-
-
-function getFriendEvents(res){
-	console.log("inside get friend events");
-	var query = Events.find({eventListId:2});
-	query.exec(function (err, itemArray) {
-		res.json(itemArray);
-	});
-}
-
-function getMyEvents(res, query){
-	console.log("inside getSingleUserEvents")
-	var query = Calendars.findOne({Users.findOne({calendarId:query})});
-	query.exec(function (err, itemArray) {
-		res.json(itemArray);		
-	});
-}
-
-function getAllEvents(res, query){
-	console.log("inside get all events");
-	var query =Calendars.find({Users.find);
-	query.exec(function (err, itemArray) {
- 		res.json(itemArray);
-	});
-}
-
-
-//how hilerio calls for list ID: <h4 class="panel-heading"><a href="#/lists/{{result.listId}}">{{$index + 1}} - {{result.name}}</a></h4>
-app.get('/:uID/', function(req,res){
-	var id = req.params.uID;
-	console.log("get" + id + "'s events");
-	getSingleUserEvents(res, {uID: id});
-});
-
-
-app.get('/events/', function (req, res){
-	var id = req.params.uID;
-	console.log("get all events");
-	getAllEvents(res, uID: id);
-});
-
-app.get('/events/self', function (req, res){
-	console.log("get my events");
-	getMyEvents(res);
-});
-
-app.get('/events/friend', function (req, res){
-	console.log("get friend events");
-	getFriendEvents(res);
-});
-
-*/

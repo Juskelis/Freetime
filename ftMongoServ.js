@@ -133,15 +133,14 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/calendar/');
+    res.redirect('/cal/');
   });
   
 app.get('logout', function(req, res){
 	req.logout();
 	res.redirect('/');
 });
-
-  
+ 
   
  //FUNCTIONS
  //-----------------------------------------------------------------------------------------------------------
@@ -277,6 +276,10 @@ app.get('/cal/', function (req, res){
 	console.log("get all events");
 	getAllEvents(req,res);
 });
+
+
+
+
 
 app.get('/cal/self',function (req, res){
 	console.log("get my events");

@@ -2,8 +2,8 @@
 
 angular
 .module('calendarApp')
-.controller('EventCtrl', ['$scope', '$rootScope', '$http',
-	function($scope,  $rootScope, $http) {
+.controller('EventCtrl', ['$scope', '$rootScope', '$http', '$location', '$route',
+	function($scope,  $rootScope, $http, $location, $route) {
 		console.log("you are here");
 		$scope.init = function() {
 			$scope.event = {
@@ -34,12 +34,14 @@ angular
 			{
 				if($rootScope.event != null) {
 					$http.put('/event/' + $scope.event.id,event).success(function(data, status, headers, config) {
-						$location.path('calendar');
+						$location.path('/calendar');
+						$route.reload();
 					});
 				}
 				else {
 					$http.post('/event/', event).success(function(data, status, headers, config) {
-						$location.path('calendar');
+						$location.path('/calendar');
+						$route.reload();
 					});
 				}
 			}
@@ -48,7 +50,8 @@ angular
 		$scope.deleteEvent = function(event) {
 			//no validation required
 			$http.delete('/event/' + $scope.event.id, event).success(function(data,status,headers,config) {
-				$location.path('calendar')
+				$location.path('calendar');
+				$route.reload();
 			});
 		};
 	}

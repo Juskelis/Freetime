@@ -149,7 +149,7 @@ angular
 				var evt = {};
 				evt.title = events[i].title;
 				evt.description = events[i].description;
-				evt.ownerID = events[i].ownerID;
+				evt.uID = events[i].uID;
 				evt.id = events[i].id;
 				evt.privacy = events[i].privacy;
 				evt.start = events[i].start;

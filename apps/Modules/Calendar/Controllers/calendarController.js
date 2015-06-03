@@ -145,6 +145,17 @@ angular
 			var events = $('#calendar').fullCalendar('clientEvents', function(evt) {
 				return evt.editable;
 			});
+			var send = [];
+			for(var i = 0; i < events.length; i++) {
+				var evt = {};
+				evt.title = events[i].title;
+				evt.description = events[i].description;
+				evt.uID = events[i].uID;
+				evt.id = events[i].id;
+				evt.privacy = events[i].privacy;
+				evt.start = events[i].start;
+				send.push(evt);
+			}
 			
 			/*	routes
 				post eventList to server
@@ -152,7 +163,7 @@ angular
 				PUT /cal/save/
 			*/
 			
-			$http.put('/cal/save/', events).success(function(data, status, headers, config) {
+			$http.put('/cal/save/', send).success(function(data, status, headers, config) {
 				console.log("saved calendar");
 			});
 		};

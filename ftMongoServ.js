@@ -110,6 +110,7 @@ mongoose.connection.on('open', function() {
 			   title: String,
 			   description: String,
 			   //eventId listed as ID
+			   uID: Number,
 			   id: Number,
 			   privacy: String,
 			   start: String
@@ -159,6 +160,15 @@ app.get('logout', function(req, res){
 			}
 			var fcalQuery = Calendars.where('calendarID').in('calendarID', arr);
 			
+			console
+			.log(arr);
+			
+			console.log(arr);
+			console.log(arr);
+			console.log(arr);
+			console.log(arr);
+			console.log(arr);
+			console.log(arr);
 			fcalQuery.exec(function(err, cal) {
 				if(!err) {
 					console.log(cal);
@@ -181,7 +191,8 @@ function getMyEvents(req, res){
 			console.log(foundUser.calendarIDs);
 			var arr = [];
 			arr.push(foundUser.calendarIDs[0].cID);
-			var fcalQuery = Calendars.where('calendarID').in('calendarID', arr);
+			console.log(arr);
+			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
 			
 			fcalQuery.exec(function(err, cal) {
 				if(!err) {
@@ -274,11 +285,8 @@ app.use('/eventSources/', express.static('./eventsources'));
  //loading calendars
 app.get('/cal/', function (req, res){
 	console.log("get all events");
-	getAllEvents(req,res);
+	getMyEvents(req,res);
 });
-
-
-
 
 
 app.get('/cal/self',function (req, res){

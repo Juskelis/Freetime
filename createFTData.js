@@ -8,13 +8,16 @@
 		  //jackson
 		  name: "Francis Time",
 		  uID: 10204294063808640,
-		  calendarID: 3,
-		  fCalendarIDs:[
+
+		  calendarIDs:[
 		  {
-			  fID:1
+			  cID:3
+		  }
+		  {
+			  cID:1
 		  },
 		  {
-			  fID:2
+			  cID:2
 		  }
 		  ]
 	}
@@ -23,8 +26,11 @@
 	{
 		  name: "Fred Time",
 		  uID: 10207174424383277,
-		  calendarID: 1,
-		  fCalendarIDs:[
+		 
+		  calendarIDs:[
+		  {
+		  cID:1
+		  },
 		  {
 			fID: 2
 		  }
@@ -37,8 +43,9 @@
 	{  
 		  name: "Silverman",
 		  uID: 10207082729414692,
-		  calendarID: 2,
-		  fCalendarIDs:[{
+		  calendarIDs:[
+		  {
+			  cID:2
 		  }
 		  ]
 	}

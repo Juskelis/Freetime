@@ -55,7 +55,7 @@ passport.use(new FacebookStrategy({
 
 
 
-var server = http.createServer(app);
+var server = http.createServer(app);xx
 
 
 // configure Express
@@ -81,7 +81,6 @@ var server = http.createServer(app);
 
 
 
-
 var Users;
 var Calendars                  
 
@@ -92,11 +91,10 @@ mongoose.connection.on('open', function() {
 		{
 			name: String,
 			uID: Number,
-			calendarID: Number,
-			hashedPW: String,
-			fCalendarIDs: [
+			
+			calendarIDs: [
 			{
-				fID: Number
+				cID: Number
 			}
 			]
 
@@ -151,27 +149,30 @@ app.get('logout', function(req, res){
 
 
  function getAllEvents(req, res) {
-	var responseArray = [];
+	 
 	var userQuery = Users.findOne({uID: req.user});
-	userQuery.exec(function (err, user) {
+	userQuery.exec(function (err, foundUser) {
+	
 		if(!err) {
-			var calQuery = Calendars.findOne({calendarID: user.calendarID});
-			calQuery.exec(function(err, cal) {
-				if(!err) {	
-					responseArray.push(cal.events);
-				}
-			});
-			for(var i in user.fcalendarIDs) {
-				var fcalQuery = Calendars.findOne({calendarID: user.fcalendarIDs[i]});
-				fcalQuery.exec(function(err, cal) {
-					if(!err) {
-						responseArray.push(cal.events);
-					}
+			console.log(foundUser.calendarIDs);
+			
+		[{}}{{}{}]
+			var fcalQuery = Calendars.where('calendarID').in(foundUser.calendarIDs);
+			
+			fcalQuery.exec(function(err, cal) {
+				console.log(cal);
+				console.log("got in here");
+				if(!err) {
+					console.log("got in here");
+					console.log(cal);
+					responseArray.push(cal);
+					res.json(responseArray)		
+					}		
 				});
-			}
 		}
-	});	
-	res.json(responseArray);
+		
+	//res.json(responseArray);
+	});
 }
 
 

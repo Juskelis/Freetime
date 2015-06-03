@@ -68,9 +68,7 @@ angular
 				}
 			}
 			*/
-			for(var i = 0; i < eventList.length; i++) {
-				$('#calendar').fullCalendar('addEventSource', eventList[i].events);
-			}
+			$('#calendar').fullCalendar('addEventSource', eventList);
 		};
 		
 		//
@@ -98,9 +96,9 @@ angular
 			$http.get(call).success(function(data, status, headers, config) {
 				if(data != null) {
 					var eventList = [];
-					for(c = 0; c < data.length; c++) {
+					for(var c = 0; c < data.length; c++) {
 						var cal = data[c];
-						for(e = 0; e < cal.events.length; e++) {
+						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
 							event.uID = cal.uID;
 							eventList.push(event);

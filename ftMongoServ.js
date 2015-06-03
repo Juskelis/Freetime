@@ -301,6 +301,10 @@ app.use('/eventSources/', express.static('./eventsources'));
 
 //-----------API's----------------------------------------------------------------------
 	
+	
+app.get('/init/', function(req,res)){
+	res.send(req.user);
+}
  //loading calendars
 app.get('/cal/', function (req, res){
 	console.log("get all events");

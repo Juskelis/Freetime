@@ -25,9 +25,16 @@ angular
 			if($scope.event.title.length > 0
 				&& $scope.event.startDate.length > 0)
 			{
-				$http.put('/event/$scope.event.id',event).success(function(data, status, headers, config) {
-					$location.path('/cal/')
-				});
+				if($rootScope.event != null) {
+					$http.put('/event/$scope.event.id',event).success(function(data, status, headers, config) {
+						$location.path('/cal/');
+					});
+				}
+				else {
+					$http.post('/event/', event).success(function(data, status, headers, config) {
+						$location.path('/cal/');
+					});
+				}
 			}
 		};
 		

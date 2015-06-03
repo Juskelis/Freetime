@@ -9,6 +9,8 @@
 				<a type="button" class="btn btn-lg btn-default" ng-click="CalendarService.loadEventsFromServer({{user.uID}})">{{user.name}}</a>
 			</div>
 			-->
+			<a type="button" href = "#/event/" class="btn btn-lg btn-default">Create Event</a>
+			<br>
 			<a type="button" id="allEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer('')">All Events</a>
 			<a type="button" id="myEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer('self')">My Events</a>
 			<a type="button" id="friendEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer('friend')">Friend's Events</a>

@@ -229,9 +229,11 @@ function getFriendEvents(req, res) {
 function saveCalendar(req,res, eventList){
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
-		if(!err && foundUser != null) {
-			console.log(foundUser.calendarIDs);
-			Calendars.findOne({calendarID : req.res}, function(err,doc){
+		if(!err) {
+			var query = Calendars.findOneAndUpdate({calendarID : req.user}, eventList, {upsert: true});
+			query.exec();
+			/*
+			Calendars.findOne({calendarID : req.user}, function(err,doc){
 				if(!err){
 					doc.events = eventList;
 					doc.save(callback);
@@ -242,6 +244,7 @@ function saveCalendar(req,res, eventList){
 					res.sendStatus(404);
 				}
 			});
+			*/
 		}
 	});
 }

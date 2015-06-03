@@ -31,7 +31,7 @@ angular
 	})
 	*/
 	.when('/eventDetails/', {
-		templaceUrl: 'Modules/Event/Views/event.html',
+		templateUrl: 'Modules/Event/Views/event.html',
 		controller: 'EventCtrl'
 	})
 	.when('/calendar/', {

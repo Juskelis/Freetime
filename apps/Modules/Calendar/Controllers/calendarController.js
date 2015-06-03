@@ -10,8 +10,8 @@
  */
 angular
 .module('calendarApp')
-.controller('CalendarCtrl', ['$scope', '$rootScope', '$http',
-	function($scope,  $rootScope, $http) {
+.controller('CalendarCtrl', ['$scope', '$rootScope', '$http', '$location', '$route', 
+	function($scope,  $rootScope, $http, $location, $route) {
 		$scope.initCalendar = function() {
 			$http.get('/init/').success(function(data, status, headers, config) {
 				$rootScope.user = data;
@@ -30,23 +30,22 @@ angular
 				
 				eventClick: function(event, element) {
 					if(event.uID == $rootScope.user) {
-						console.log("Navigating away");
-						//$rootScope.event = event;
-						//$location.path('#/eventDetails/');
+						$rootScope.event = event;
+						$location.path('/eventDetails');
+						console.log($location.path());
+						$route.reload();
 					}
 				},
 				
 				eventDrop: function(event, delta) {
 					if(event.uID == $rootScope.user) {
-						console.log("Drop");
 						$scope.saveEventsToServer();
 					}
 				},
 				
 				eventResize: function(event, delta) {
 					if(event.uID == $rootScope.user) {
-						console.log("Resize");
-						//$scope.saveEventsToServer();
+						$scope.saveEventsToServer();
 					}
 				}
 			});

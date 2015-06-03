@@ -4,8 +4,8 @@ angular
 .module('calendarApp')
 .controller('EventCtrl', ['$scope', '$rootScope', '$http',
 	function($scope,  $rootScope, $http) {
+		console.log("you are here");
 		$scope.init = function() {
-			console.log("starting");
 			$scope.event = {
 				title:"",
 				start:"",

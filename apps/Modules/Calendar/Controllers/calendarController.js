@@ -13,6 +13,10 @@ angular
 .controller('CalendarCtrl', ['$scope', '$rootScope', '$http',
 	function($scope,  $rootScope, $http) {
 		$scope.initCalendar = function() {
+			$http.get('/init/').success(function(data, status, headers, config) {
+				$rootScope.user = data;
+			});
+			
 			$('#calendar').fullCalendar({
 				editable: true,
 				eventLimit:true,
@@ -109,7 +113,6 @@ angular
 						var cal = data[c];
 						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
-							event.uID = cal.uID;
 							console.log($rootScope.user);
 							event.editable = event.uID == $rootScope.user;
 							if(event.editable) {

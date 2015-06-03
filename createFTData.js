@@ -5,14 +5,13 @@
 	
 	userCollection.insert(
 	{  
-		  //jackson
 		  name: "Francis Time",
 		  uID: 10204294063808640,
 
 		  calendarIDs:[
 		  {
 			  cID:3
-		  }
+		  },
 		  {
 			  cID:1
 		  },
@@ -29,10 +28,10 @@
 		 
 		  calendarIDs:[
 		  {
-		  cID:1
+		    cID:1
 		  },
 		  {
-			fID: 2
+			cID: 2
 		  }
 		  ]
 	}

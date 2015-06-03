@@ -156,7 +156,6 @@ app.get('logout', function(req, res){
 		if(!err) {
 			console.log(foundUser.calendarIDs);
 			
-		[{}}{{}{}]
 			var fcalQuery = Calendars.where('calendarID').in(foundUser.calendarIDs);
 			
 			fcalQuery.exec(function(err, cal) {

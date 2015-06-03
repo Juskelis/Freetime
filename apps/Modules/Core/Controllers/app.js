@@ -47,12 +47,11 @@ angular
 	.otherwise({
 		redirectTo: '/'
 	});
-});
-/*
+})
 .service('AccountService', function() {
 	this.SignIn = function() {
 		$http.get('/auth/facebook').success(function(data, status, headers, config) {
-			$location.path('/cal/');
+			$location.path('#/calendar');
 		});
 	};
 	
@@ -62,7 +61,6 @@ angular
 		});
 	};
 });
-*/
 /*
 .service('CalendarService', function() {
 	this.ClearCalendar = function() {

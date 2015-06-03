@@ -25,9 +25,9 @@ angular
 				},
 				
 				eventClick: function(event, element) {
-					if(event.uID == user.id) {
+					if(event.uID == user) {
 						$rootScope.event = event;
-						$location.path('eventDetails');
+						$location.path('#/eventDetails/');
 					}
 				},
 				
@@ -39,7 +39,7 @@ angular
 					$scope.saveEventsToServer();
 				}
 			});
-			CalendarService.loadEventsFromServer('');
+			$scope.loadEventsFromServer('');
 		};
 		
 		//NEED TO LEARN HOW TO LOAD EVENTS FROM SERVER
@@ -92,6 +92,7 @@ angular
 				friends:GET /cal/friends
 			*/
 			
+			$scope.ClearCalendar();
 			var call = "/cal/" + calendarFlag;
 			$http.get(call).success(function(data, status, headers, config) {
 				if(data != null) {

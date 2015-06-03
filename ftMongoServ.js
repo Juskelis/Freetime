@@ -133,7 +133,7 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/cal/');
+    res.redirect('/#/calendar/');
   });
   
 app.get('logout', function(req, res){
@@ -199,7 +199,7 @@ function getMyEvents(req, res){
 function getFriendEvents(req, res) {
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
-		if(!err) {
+		if(!err && foundUser != null) {
 			console.log(foundUser.calendarIDs);
 			var arr = [];
 			for (i = 1; i < foundUser.calendarIDs.length; i++){
@@ -216,7 +216,7 @@ function getFriendEvents(req, res) {
 					console.log("ERROR");
 					res.json();
 				}
-				});
+			});
 		}
 	});
 }

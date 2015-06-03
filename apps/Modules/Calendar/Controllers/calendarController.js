@@ -25,17 +25,20 @@ angular
 				},
 				
 				eventClick: function(event, element) {
-					if(event.uID == user) {
+					if(event.uID == $scope.user) {
+						console.log("Navigating away");
 						//$rootScope.event = event;
-						$location.path('#/eventDetails/');
+						//$location.path('#/eventDetails/');
 					}
 				},
 				
 				eventDrop: function(event, delta) {
+					console.log("Drop");
 					//$scope.saveEventsToServer();
 				},
 				
 				eventResize: function(event, delta) {
+					console.log("Drop");
 					//$scope.saveEventsToServer();
 				}
 			});
@@ -124,7 +127,7 @@ angular
 			//color of user's events
 			
 			var events = $('calendar').fullCalendar('clientEvents', function(evt) {
-				return evt.uID == user.id;
+				return evt.uID == $scope.user;
 			});
 			
 			/*	routes

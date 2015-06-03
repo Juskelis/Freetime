@@ -113,7 +113,6 @@ angular
 						var cal = data[c];
 						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
-							console.log($rootScope.user);
 							event.editable = event.uID == $rootScope.user;
 							if(event.editable) {
 								//event.color = "rgb(58,135,173)";
@@ -143,9 +142,8 @@ angular
 		//only called when pre-existing events change (aka they are dragged/resized)
 		$scope.saveEventsToServer = function() {
 			//color of user's events
-			
-			var events = $('calendar').fullCalendar('clientEvents', function(evt) {
-				return evt.uID == $scope.user;
+			var events = $('#calendar').fullCalendar('clientEvents', function(evt) {
+				return evt.editable;
 			});
 			
 			/*	routes

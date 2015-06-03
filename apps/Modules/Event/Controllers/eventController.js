@@ -5,6 +5,7 @@ angular
 .controller('EventCtrl', ['$scope', '$rootScope', '$http',
 	function($scope,  $rootScope, $http) {
 		$scope.init = function() {
+			console.log("starting");
 			$scope.event = {
 				title:"",
 				start:"",

@@ -41,13 +41,13 @@ angular
 					if(event.uID == $rootScope.user) {
 						$scope.saveEventsToServer();
 					}
-				},
+				}/*,
 				
 				eventResize: function(event, delta) {
 					if(event.uID == $rootScope.user) {
 						$scope.saveEventsToServer();
 					}
-				}
+				}*/
 			});
 			$scope.loadEventsFromServer('');
 		};

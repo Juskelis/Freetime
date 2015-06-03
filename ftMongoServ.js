@@ -55,7 +55,7 @@ passport.use(new FacebookStrategy({
 
 
 
-var server = http.createServer(app);xx
+var server = http.createServer(app);
 
 
 // configure Express
@@ -152,11 +152,12 @@ app.get('logout', function(req, res){
 	 
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
-	
-		if(!err) {
+		
+	    if(!err) {
 			console.log(foundUser.calendarIDs);
 			
-			var fcalQuery = Calendars.where('calendarID').in(foundUser.calendarIDs);
+			//var fcalQuery = Calendars.where('calendarID').in(foundUser.calendarIDs);
+			var fcalQuery = Calendars.where('calendarID').in('calendarID',[1,2,3] );
 			
 			fcalQuery.exec(function(err, cal) {
 				console.log(cal);
@@ -164,9 +165,11 @@ app.get('logout', function(req, res){
 				if(!err) {
 					console.log("got in here");
 					console.log(cal);
-					responseArray.push(cal);
-					res.json(responseArray)		
-					}		
+					res.json(cal);
+					}
+				else{
+					console.log("ERROR");
+				}
 				});
 		}
 		

@@ -25,7 +25,7 @@ angular
 				},
 				
 				eventClick: function(event, element) {
-					if(event.uID == $scope.user) {
+					if(event.uID == $rootScope.user) {
 						console.log("Navigating away");
 						//$rootScope.event = event;
 						//$location.path('#/eventDetails/');
@@ -33,14 +33,14 @@ angular
 				},
 				
 				eventDrop: function(event, delta) {
-					if(event.uID == $scope.user) {
+					if(event.uID == $rootScope.user) {
 						console.log("Drop");
-						//$scope.saveEventsToServer();
+						$scope.saveEventsToServer();
 					}
 				},
 				
 				eventResize: function(event, delta) {
-					if(event.uID == $scope.user) {
+					if(event.uID == $rootScope.user) {
 						console.log("Resize");
 						//$scope.saveEventsToServer();
 					}
@@ -110,7 +110,8 @@ angular
 						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
 							event.uID = cal.uID;
-							event.editable = event.uID == $scope.user;
+							console.log($rootScope.user);
+							event.editable = event.uID == $rootScope.user;
 							if(event.editable) {
 								//event.color = "rgb(58,135,173)";
 								event.color = "rgb(137,225,35)";

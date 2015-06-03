@@ -102,6 +102,7 @@ angular
 			$scope.ClearCalendar();
 			var call = "/cal/" + calendarFlag;
 			$http.get(call).success(function(data, status, headers, config) {
+				
 				if(data != null) {
 					var eventList = [];
 					for(var c = 0; c < data.length; c++) {

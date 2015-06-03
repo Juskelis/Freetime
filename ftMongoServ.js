@@ -233,6 +233,25 @@ function getFriendEvents(req, res) {
 }
 
 
+function 	saveCalendar(req,res, eventList){
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		if(!err && foundUser != null) {
+			console.log(foundUser.calendarIDs);
+			Calendars.findOne({calendarID : req.res}, function(err,doc){
+				if(!err){
+					doc.events = eventList;
+					doc.save(callback);
+					res.sendStatus(200);
+				}
+				else{
+					console.log("ERROR");
+					res.sendStatus(404);
+				}
+			});
+		}
+	});
+}
 
 
 
@@ -285,7 +304,7 @@ app.use('/eventSources/', express.static('./eventsources'));
  //loading calendars
 app.get('/cal/', function (req, res){
 	console.log("get all events");
-	getMyEvents(req,res);
+	getAllEvents(req,res);
 });
 
 
@@ -296,8 +315,16 @@ app.get('/cal/self',function (req, res){
 
 app.get('/cal/friends',function (req, res){
 	console.log("get friend events");
-	getFriendEvents(res);	
+	getFriendEvents(req,res);	
 });
+
+
+app.put('/cal/save/', jsonParser, function (req,res){
+	console.log('saving current calendar');
+	eventList = req.body;
+	saveCalendar(req,res, eventList);
+});
+
 
 
 /*
@@ -312,7 +339,7 @@ app.get('/cal/friends',function (req, res){
 app.put('/event/:eID', jsonParser, function(req, res){
 	var eventID = req.params.eID;
 	var event = req.body;
-	var curID = req.user.id;
+	var curID = req.user;
 	var calQuery = Users.findOne({uID: curID});
 	calQuery.exec(function(err, user) {
 		if(!err) {

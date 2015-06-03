@@ -30,11 +30,11 @@ angular
 		controller: 'AccountCtrl'
 	})
 	*/
-	.when('/event/', {
+	.when('/eventDetails/', {
 		templaceUrl: 'Modules/Event/Views/event.html',
 		controller: 'EventCtrl'
 	})
-	.when('/cal/', {
+	.when('/calendar/', {
 		templateUrl: 'Modules/Calendar/Views/calendar.html',
 		controller: 'CalendarCtrl'
 	})

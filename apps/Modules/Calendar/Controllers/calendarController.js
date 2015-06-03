@@ -25,8 +25,10 @@ angular
 				},
 				
 				eventClick: function(event, element) {
-					$rootScope.event = event;
-					$location.path('event');
+					if(event.uID == user.id) {
+						$rootScope.event = event;
+						$location.path('eventDetails');
+					}
 				},
 				
 				eventDrop: function(event, delta) {
@@ -94,7 +96,18 @@ angular
 			
 			var call = "/cal/" + calendarFlag;
 			$http.get(call).success(function(data, status, headers, config) {
-				$scope.AddToCalendar(data);
+				if(data != null) {
+					var eventList = [];
+					for(c = 0; c < data.length; c++) {
+						var cal = data[c];
+						for(e = 0; e < cal.events.length; e++) {
+							var event = cal.events[e];
+							event.uID = cal.uID;
+							eventList.push(event);
+						}
+					}
+					$scope.AddToCalendar(eventList);
+				}
 			});
 			
 			/* old version

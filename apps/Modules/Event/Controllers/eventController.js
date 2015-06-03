@@ -27,12 +27,12 @@ angular
 			{
 				if($rootScope.event != null) {
 					$http.put('/event/$scope.event.id',event).success(function(data, status, headers, config) {
-						$location.path('/cal/');
+						$location.path('calendar');
 					});
 				}
 				else {
 					$http.post('/event/', event).success(function(data, status, headers, config) {
-						$location.path('/cal/');
+						$location.path('calendar');
 					});
 				}
 			}
@@ -41,7 +41,7 @@ angular
 		$scope.deleteEvent = function(event) {
 			//no validation required
 			$http.delete('/event/$scope.event.id', event).success(function(data,status,headers,config) {
-				$location.path('/cal/')
+				$location.path('calendar')
 			});
 		};
 	}

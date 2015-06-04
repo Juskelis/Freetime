@@ -83,7 +83,7 @@ var server = http.createServer(app);
 
 var Users;
 var Calendars                  
-
+var idGenerator = 1000;
 mongoose.connect(mongoDBConnection.uri);
 mongoose.connection.on('open', function() {
 	var Schema = mongoose.Schema;
@@ -360,7 +360,33 @@ function addEvent(req,res, event){
 }
 
 
-
+function createSingleEvent(req, res, event){
+	
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		if(!err) {
+			var arr = [];
+			arr.push(foundUser.calendarIDs[0].cID);
+			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
+			
+			fcalQuery.exec(function(err, cal) {
+				if(!err) {
+					cal[0].events.push(event);
+					/*
+					for(var i in cal[0].events){
+						if(cal[0].events[i].id == event.id){
+							cal[0].events[i] = event;
+							var holder = i;
+						}
+					}
+					*/
+					
+					saveCalendar(req, res, cal[0].events);
+				}
+			});
+		}
+	});
+}
 
 
 
@@ -479,8 +505,7 @@ app.put('/event/:eID', jsonParser, function(req, res){
 		}
 	});
 	*/
-});
-/*
+});/*
 	What I'm doing:
 		getting all the data I need at the beginning (eventID, actual event object, userID)
 		get the user in the DB with userID
@@ -489,47 +514,42 @@ app.put('/event/:eID', jsonParser, function(req, res){
 			push new event onto event list
 		Update calendars DB with new calendar
 */
-app.post('/event/:eID', jsonParser, function(req, res){
-	var eventID = req.params.eID;
+app.post('/event/', jsonParser, function(req, res){
+	console.log("running the post");
 	var event = req.body;
-	var curID = req.user.id;
-	var calQuery = Users.findOne({uID: curID});
-	calQuery.exec(function(err, user) {
-		if(!err) {
-			var calID = user.calendarId;
-			var eventListQuery = Calendars.findOne({calendarId: calID});
-			eventListQuery.exec(function(err, cal) {
-				if(!err) {
-					var evList = cal.events;
-					evList.push(event);
-					cal.events = evList;
-					Calendars.Update({calendarId: calID}, cal, {multi: false}, function(err) {
-						if(err) {
-							console.log("error creating new event in calendar");
-						}
-					});
-				}
-			});
-		}
-	});
-});
+	//var curID = req.user.id;
+	
+	//cal.events.push(event);
+		
+	event.uID = req.user;
+	event.id = idGenerator;
+	event.privacy = "true";
+	
+	idGenerator += 1;
+	createSingleEvent(req, res, event);
 
+});
 
 /*
 	get current user
 	get current calendar and remove events with eventID
 */
-app.delete('/event/:eID', function(req, res) {
-	var eventID = req.params.eID;
-	var curID = req.user.id;
+app.delete('/event/:eID', jsonParser, function(req, res) {
+	var event = req.body;
+	console.log("event: " + JSON.stringify(event));
+	var eventID = event.eID;
+	console.log("eventID: " + req.params.eID);
+	var curID = req.user;
+	console.log("curID: " + req.user);
 	var calQuery = Users.findOne({uID: curID});
 	calQuery.exec(function(err, user) {
 		if(!err) {
-			var calID = user.calendarID;
+			console.log("user?: " + JSON.stringify(user));
+			/*var calID = user.calendarID;
 			var query = Calendars.update({calendarId: calID}, {$pull: { events:{id:eventID}}});
 			query.exec(function(err, numOfDocsChanged) {
 				console.log("Changed " + numOfDocsChanged);
-			});
+			});*/
 		}
 	});
 });

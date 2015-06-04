@@ -1,0 +1,19 @@
+<div class = "row" ng-init='initCalendar()'>
+	<div class="col-md-10">
+		<div id='calendar' style="max-height: 900px; margin: 0 auto;"></div>
+	</div>
+	<div class="col-md-2">
+		<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+			<!--
+			<div ng-repeat="user in friendsList">
+				<a type="button" class="btn btn-lg btn-default" ng-click="CalendarService.loadEventsFromServer({{user.uID}})">{{user.name}}</a>
+			</div>
+			-->
+			<a type="button" href = "#/eventDetails" class="btn btn-lg btn-default">Create Event</a>
+			<br>
+			<a type="button" id="allEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer('')">All Events</a>
+			<a type="button" id="myEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer('self')">My Events</a>
+			<a type="button" id="friendEventsButton" class="btn btn-lg btn-default"  ng-click="loadEventsFromServer('friends')">Friend's Events</a>
+		</div>
+	</div>
+</div>

@@ -16,7 +16,6 @@ angular
 				$scope.event.title = $rootScope.event.title;
 				$scope.event.description = $rootScope.event.description;
 				$scope.event.uID = $rootScope.event.uID;
-				$scope.event.id = $rootScope.event.id;
 				$scope.event.privacy = $rootScope.event.privacy;
 				$scope.event.start = $rootScope.event.start;
 			}

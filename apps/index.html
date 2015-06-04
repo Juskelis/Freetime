@@ -18,14 +18,16 @@
 		<nav class = "navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#/">FreeTime</a>
+					<a ng-if="!user" class="navbar-brand" href="#/">FreeTime</a>
+					<a ng-if="user" class="navbar-brand" href="#/calendar">FreeTime</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="" id="SignOutButton" ng-click="AccountService.SignOut()" style="display: none;">Sign Out</a>
+							<a ng-if="user" href="/logout">Sign Out</a>
+							<a ng-if="!user" href="/auth/facebook">Log In</a>
 						</li>
 					</ul>
 				</div>

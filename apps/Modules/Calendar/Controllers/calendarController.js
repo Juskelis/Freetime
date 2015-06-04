@@ -29,7 +29,7 @@ angular
 				},
 				
 				eventClick: function(event, element) {
-					if(event.uID == $rootScope.user) {
+					if(event.uID == 10204294063808640) {
 						$rootScope.event = event;
 						$location.path('/eventDetails');
 						console.log($location.path());
@@ -38,7 +38,7 @@ angular
 				},
 				
 				eventDrop: function(event, delta) {
-					if(event.uID == $rootScope.user) {
+					if(event.uID == 10204294063808640) {
 						$scope.saveEventsToServer();
 					}
 				}/*,
@@ -112,7 +112,7 @@ angular
 						var cal = data[c];
 						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
-							event.editable = event.uID == $rootScope.user;
+							event.editable = event.uID == 10204294063808640;
 							if(event.editable) {
 								//event.color = "rgb(58,135,173)";
 								event.color = "rgb(137,225,35)";

@@ -310,8 +310,17 @@ app.use('/eventSources/', express.static('./eventsources'));
 	
 	
 app.get('/init/', function(req,res){
+	
 	res.send(userID);
 });
+
+app.get('/logout', function(req, res){
+	res.redirect('/');
+});
+ 
+
+
+
  //loading calendars
 app.get('/cal/', function (req, res){
 	console.log("get all events");
@@ -337,6 +346,12 @@ app.put('/cal/save/', jsonParser, function (req,res){
 	console.log(eventList);
 	saveCalendar(req,res, eventList);
 });
+
+app.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
+});
+ 
 
 
 

@@ -18,6 +18,7 @@ angular
 				$scope.event.uID = $rootScope.event.uID;
 				$scope.event.privacy = $rootScope.event.privacy;
 				$scope.event.start = $rootScope.event.start;
+				$scope.event.id = $rootScope.event.id
 			}
 		};
 		
@@ -29,15 +30,19 @@ angular
 			}
 		*/
 		$scope.submitEvent = function(event) {
+			console.log(" In submitEvent");		
 			if($scope.event.title.length > 0)
+			console.log("submitEvent: Passed gatekeeper");				
 			{
 				if($rootScope.event != null) {
+					console.log("submitEvent: $rootScope.event != null");	
 					$http.put('/event/' + $scope.event.id, event).success(function(data, status, headers, config) {
 						$location.path('/calendar');
 						$route.reload();
 					});
 				}
 				else {
+					console.log("submitEvent: $rootScope.event == null");	
 					$http.post('/event/', event).success(function(data, status, headers, config) {
 						$location.path('/calendar');
 						$route.reload();
@@ -47,6 +52,7 @@ angular
 		};
 		
 		$scope.deleteEvent = function() {
+			console.log("In deleteEvent");	
 			//no validation required
 			$http.delete('/event/' + $scope.event.id).success(function(data,status,headers,config) {
 				$location.path('calendar');

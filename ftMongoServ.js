@@ -230,9 +230,11 @@ function getFriendEvents(req, res) {
 
 
 function saveCalendar(req,res, eventList){
+	console.log("In saveCalendar");
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
+			console.log("saveCalendar.userQuery: No Error");
 			//Calendars.findOneAndUpdate({calendarID: JSON.stringify(foundUser.calendarIDs[0]).replace( /\D+/g, '')} , {$set: {events: eventList}}, function (err, result) {
 			Calendars.findOneAndUpdate({calendarID: JSON.stringify(foundUser.calendarIDs[0]).replace( /\D+/g, '')} , {$set: {events: eventList}}, function (err, result) {
 				
@@ -250,16 +252,18 @@ function saveCalendar(req,res, eventList){
 
 
 function saveSingleEvent(req,res, event){
-	
+	console.log("In saveSingleEvent");
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
+			console.log("saveSingleEvent.userQuery: No error");
 			var arr = [];
 			arr.push(foundUser.calendarIDs[0].cID);
 			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
 			
 			fcalQuery.exec(function(err, cal) {
 				if(!err) {
+					console.log("saveSingleEvent.userQuery.fcalQuery: No Error");
 					for(var i in cal[0].events){
 						if(cal[0].events[i].id == event.id){
 							cal[0].events[i] = event;
@@ -268,9 +272,12 @@ function saveSingleEvent(req,res, event){
 					}
 					
 					saveCalendar(req, res, cal[0].events);
+				} else {
+					console.log(err);
 				}
 			});
 		}
+		console.log(err);
 	});
 }
 
@@ -333,16 +340,18 @@ function saveSingleEvent(req,res, event){
 */
 
 function addEvent(req,res, event){
-	
+	console.log("In addEvent");
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
+			console.log("addEvent.userQuery: No error")
 			var arr = [];
 			arr.push(foundUser.calendarIDs[0].cID);
 			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
 			
 			fcalQuery.exec(function(err, cal) {
 				if(!err) {
+					console.log("addEvent.userQuery.fcalQuery: No error")
 					cal.events.push(event);
 					
 					}
@@ -361,16 +370,18 @@ function addEvent(req,res, event){
 
 
 function createSingleEvent(req, res, event){
-	
+	console.log("In createSingleEvent");
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
+			console.log("createSingleEvent.userQuery: No Error");
 			var arr = [];
 			arr.push(foundUser.calendarIDs[0].cID);
 			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
 			
 			fcalQuery.exec(function(err, cal) {
 				if(!err) {
+					console.log("createSingleEvent.userQuery.fcalQuery: No Error");
 					cal[0].events.push(event);
 					/*
 					for(var i in cal[0].events){
@@ -382,21 +393,28 @@ function createSingleEvent(req, res, event){
 					*/
 					
 					saveCalendar(req, res, cal[0].events);
+				} else {
+					console.log(err);
 				}
 			});
+		} else {
+			console.log(err);
 		}
 	});
 }
 
 function deleteSingleEvent(req, res, eventID) {
+	console.log("In deleteSingleEvent");
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
+		console.log("In deleteSingleEvent.userQuery: No error checking");
 		var arr = [];
 		arr.push(foundUser.calendarIDs[0].cID);
 		var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
 		
 		fcalQuery.exec(function(err, cal) {
 			if(!err) {
+				console.log("deleteSingeEvent.userQuery.fcalQuery: No error");
 				for(var i = 0; i < cal[0].events.length; i++) {
 					if(cal[0].events[i].id == eventID) {
 						cal[0].events.splice(i,1);
@@ -404,6 +422,8 @@ function deleteSingleEvent(req, res, eventID) {
 				}
 				// console.log(cal[0].events);
 				saveCalendar(req, res, cal[0].events);
+			} else {
+				console.log(err);
 			}
 		});
 	});
@@ -555,6 +575,7 @@ app.post('/event/', jsonParser, function(req, res){
 	get current calendar and remove events with eventID
 */
 app.delete('/event/:eID', jsonParser, function(req, res) {
+	console.log("In delete API");
 	var eventID = req.params.eID;
 	deleteSingleEvent(req, res, eventID)
 /*

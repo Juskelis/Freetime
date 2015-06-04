@@ -582,6 +582,7 @@ app.delete('/event/:eID', jsonParser, function(req, res) {
 	var eventID = req.params.eID;
 	console.log(eventID);
 
+<<<<<<< HEAD
 	var curID = req.user;
 	console.log("curID: " + req.user);
 	var calQuery = Users.findOne({uID: curID});
@@ -598,4 +599,6 @@ app.delete('/event/:eID', jsonParser, function(req, res) {
 });
   
  
+=======
+>>>>>>> origin/LONE_SURVIVOR
 app.listen(process.env.PORT);

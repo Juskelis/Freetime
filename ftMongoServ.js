@@ -109,7 +109,6 @@ mongoose.connection.on('open', function() {
 			events: [ {
 			   title: String,
 			   description: String,
-			   //eventId listed as ID
 			   uID: Number,
 			   id: Number,
 			   privacy: String,
@@ -187,6 +186,9 @@ function getMyEvents(req, res){
 				if(!err) {
 					console.log(cal);
 					res.json(cal);
+					
+					
+					
 					}
 				else{
 					console.log("ERROR");
@@ -226,11 +228,14 @@ function getFriendEvents(req, res) {
 }
 
 
+
 function saveCalendar(req,res, eventList){
 	var userQuery = Users.findOne({uID: req.user});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
+			//Calendars.findOneAndUpdate({calendarID: JSON.stringify(foundUser.calendarIDs[0]).replace( /\D+/g, '')} , {$set: {events: eventList}}, function (err, result) {
 			Calendars.findOneAndUpdate({calendarID: JSON.stringify(foundUser.calendarIDs[0]).replace( /\D+/g, '')} , {$set: {events: eventList}}, function (err, result) {
+				
 				if(err){
 					console.log(err);
 				} else {
@@ -240,6 +245,120 @@ function saveCalendar(req,res, eventList){
 		}
 	});
 }
+
+
+
+function saveSingleEvent(req,res, event){
+	
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		if(!err) {
+			var arr = [];
+			arr.push(foundUser.calendarIDs[0].cID);
+			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
+			
+			fcalQuery.exec(function(err, cal) {
+				if(!err) {
+					for(var i in cal[0].events){
+						if(cal[0].events[i].id == event.id){
+							cal[0].events[i] = event;
+							var holder = i;
+						}
+					}
+					
+					saveCalendar(req, res, cal[0].events);
+				}
+			});
+		}
+	});
+}
+
+
+			/*
+function saveSingleEvent(req,res, event){
+	
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		if(!err) {
+			var arr = [];
+			arr.push(foundUser.calendarIDs[0].cID);
+			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
+			
+			fcalQuery.exec(function(err, cal) {
+				
+				
+				if(!err) {
+					for(var i in cal[0].events){
+						console.log("individual IDs " + cal[0].events[i].id);
+						if(cal[0].events[i].id == event.id){
+							cal[0].events[i] = event;
+							var holder = i;
+						}
+					}
+					
+					saveCalendar(req, res, cal[0].events);
+					
+					//cal[0].markModified('events');
+					//cal[0].save(function (err) {
+					//	if (err) {
+						//	console.log(err);
+						//}
+					});
+				})
+
+					
+					/*
+					//cal[0].save();
+					//calendars.markModified('cal.events[holder]');
+					//Calendars.markModified('cal');
+					//Calendars.markModified('cal[holder]');
+					//cal[0].events[holder].save();
+					//res.sendStatus(200);
+					}
+					else{
+					console.log("ERROR");
+					
+					res.sendStatus(404);
+				}
+				});
+		}
+		else{
+			console.log("ERROR");
+			
+			res.sendStatus(404);
+			}
+	});
+}
+*/
+
+function addEvent(req,res, event){
+	
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		if(!err) {
+			var arr = [];
+			arr.push(foundUser.calendarIDs[0].cID);
+			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
+			
+			fcalQuery.exec(function(err, cal) {
+				if(!err) {
+					cal.events.push(event);
+					
+					}
+				else{
+					console.log("ERROR");
+					res.json();
+				}
+				});
+		}
+		else{
+			console.log("ERROR");
+			res.json();
+			}
+	});
+}
+
+
 
 
 
@@ -331,9 +450,10 @@ app.put('/cal/save/', jsonParser, function (req,res){
 		Update calendars DB with new calendar
 */
 app.put('/event/:eID', jsonParser, function(req, res){
-	var eventID = req.params.eID;
+	console.log("running the put");
 	var event = req.body;
-	var curID = req.user;
+	saveSingleEvent(req, res, event);
+	/*
 	var calQuery = Users.findOne({uID: curID});
 	calQuery.exec(function(err, user) {
 		if(!err) {
@@ -356,6 +476,7 @@ app.put('/event/:eID', jsonParser, function(req, res){
 			});
 		}
 	});
+	*/
 });
 /*
 	What I'm doing:

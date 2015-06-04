@@ -41,7 +41,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-	callbackURL: "http://me.localtest.me/auth/facebook/callback"
+	callbackURL: "http://sufreetime.azurewebsites.net/auth/facebook/callback"
   },
   function	(accessToken, refreshToken, profile, done) {
     //User.find({uId: profile.id}, function(err, user) {
@@ -582,6 +582,7 @@ app.delete('/event/:eID', jsonParser, function(req, res) {
 	var eventID = req.params.eID;
 	console.log(eventID);
 
+<<<<<<< HEAD
 	var curID = req.user;
 	console.log("curID: " + req.user);
 	var calQuery = Users.findOne({uID: curID});
@@ -597,5 +598,4 @@ app.delete('/event/:eID', jsonParser, function(req, res) {
 	});*/
 });
   
- 
 app.listen(process.env.PORT);

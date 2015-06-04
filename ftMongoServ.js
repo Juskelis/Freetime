@@ -388,6 +388,26 @@ function createSingleEvent(req, res, event){
 	});
 }
 
+function deleteSingleEvent(req, res, eventID) {
+	var userQuery = Users.findOne({uID: req.user});
+	userQuery.exec(function (err, foundUser) {
+		var arr = [];
+		arr.push(foundUser.calendarIDs[0].cID);
+		var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
+		
+		fcalQuery.exec(function(err, cal) {
+			if(!err) {
+				for(var i = 0; i < cal[0].events.length; i++) {
+					if(cal[0].events[i].id == eventID) {
+						cal[0].events.splice(i,1);
+					}
+				}
+				// console.log(cal[0].events);
+				saveCalendar(req, res, cal[0].events);
+			}
+		});
+	});
+}
 
 
 /*
@@ -535,10 +555,12 @@ app.post('/event/', jsonParser, function(req, res){
 	get current calendar and remove events with eventID
 */
 app.delete('/event/:eID', jsonParser, function(req, res) {
-	var event = req.body;
-	console.log("event: " + JSON.stringify(event));
-	var eventID = event.eID;
-	console.log("eventID: " + req.params.eID);
+	var eventID = req.params.eID;
+	deleteSingleEvent(req, res, eventID)
+/*
+	var eventID = req.params.eID;
+	console.log(eventID);
+
 	var curID = req.user;
 	console.log("curID: " + req.user);
 	var calQuery = Users.findOne({uID: curID});
@@ -549,9 +571,9 @@ app.delete('/event/:eID', jsonParser, function(req, res) {
 			var query = Calendars.update({calendarId: calID}, {$pull: { events:{id:eventID}}});
 			query.exec(function(err, numOfDocsChanged) {
 				console.log("Changed " + numOfDocsChanged);
-			});*/
+			});
 		}
-	});
+	});*/
 });
   
  

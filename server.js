@@ -41,7 +41,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-	callbackURL: "http://me.localtest.me/auth/facebook/callback"
+	callbackURL: "http://sufreetime.azurewebsites.net/auth/facebook/callback"
   },
   function	(accessToken, refreshToken, profile, done) {
     //User.find({uId: profile.id}, function(err, user) {

@@ -240,6 +240,7 @@ function saveCalendar(req,res, eventList){
 					console.log(err);
 				} else {
 					console.log ("Noice. ");
+					res.sendStatus(200);
 				}
 			});
 		}
@@ -453,6 +454,7 @@ app.put('/event/:eID', jsonParser, function(req, res){
 	console.log("running the put");
 	var event = req.body;
 	saveSingleEvent(req, res, event);
+	
 	/*
 	var calQuery = Users.findOne({uID: curID});
 	calQuery.exec(function(err, user) {

@@ -112,7 +112,7 @@ angular
 						var cal = data[c];
 						for(var e = 0; e < cal.events.length; e++) {
 							var event = cal.events[e];
-							event.editable = event.ownerID == $rootScope.user;
+							event.editable = event.uID == $rootScope.user;
 							if(event.editable) {
 								//event.color = "rgb(58,135,173)";
 								event.color = "rgb(137,225,35)";

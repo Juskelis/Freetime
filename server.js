@@ -598,7 +598,4 @@ app.delete('/event/:eID', jsonParser, function(req, res) {
 	});*/
 });
   
- 
-=======
->>>>>>> origin/LONE_SURVIVOR
 app.listen(process.env.PORT);

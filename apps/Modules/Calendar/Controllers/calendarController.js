@@ -14,7 +14,7 @@ angular
 	function($scope,  $rootScope, $http, $location, $route) {
 		$scope.initCalendar = function() {
 			$http.get('/init/').success(function(data, status, headers, config) {
-				$rootScope.user = data;
+				$rootScope.user =10204294063808640;
 			});
 			
 			$('#calendar').fullCalendar({

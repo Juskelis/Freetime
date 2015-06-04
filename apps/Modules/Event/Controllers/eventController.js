@@ -33,6 +33,11 @@ angular
 			console.log(" In submitEvent");		
 			if($scope.event.title.length > 0 && toString($scope.event.start).length != 0)			
 			{
+				
+				if(moment($scope.event.start).format() == "Invalid date") {
+						$scope.event.start = moment($('#calendar').fullCalendar('getDate')).format();
+					}
+					
 				if($rootScope.event != null) {
 					console.log("submitEvent: $rootScope.event != null");	
 					$http.put('/event/' + $scope.event.id, event).success(function(data, status, headers, config) {
@@ -41,9 +46,6 @@ angular
 					});
 				}
 				else {
-					if(moment($scope.event.start).format() == "Invalid date") {
-						$scope.event.start = moment($('#calendar').fullCalendar('getDate')).format();
-					}	
 					$http.post('/event/', event).success(function(data, status, headers, config) {
 						$location.path('/calendar');
 						$route.reload();

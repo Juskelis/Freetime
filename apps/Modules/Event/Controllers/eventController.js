@@ -47,9 +47,9 @@ angular
 			}
 		};
 		
-		$scope.deleteEvent = function(event) {
+		$scope.deleteEvent = function() {
 			//no validation required
-			$http.delete('/event/' + $scope.event.id, event).success(function(data,status,headers,config) {
+			$http.delete('/event/' + $scope.event.id).success(function(data,status,headers,config) {
 				$location.path('calendar');
 				$route.reload();
 			});

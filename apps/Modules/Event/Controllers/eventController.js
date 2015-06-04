@@ -8,7 +8,7 @@ angular
 		$scope.init = function() {
 			$scope.event = {
 				title:"",
-				start: "",
+				start: $('#calendar').fullCalendar('getDate'),
 				description:""
 			};
 			if($rootScope.event != null) {

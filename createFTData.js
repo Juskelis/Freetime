@@ -7,7 +7,7 @@
 	{  
 		  name: "Francis Time",
 		  uID: 10204294063808640,
-		
+		hashed_pwd: 'n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg='
 		  calendarIDs:[
 		  {
 			  cID:3
@@ -25,7 +25,7 @@
 	{
 		  name: "Fred Time",
 		  uID: 10207174424383277,
-		 
+		 hashed_pwd: 'n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg='
 		  calendarIDs:[
 		  {
 		    cID:1
@@ -42,6 +42,7 @@
 	{  
 		  name: "Silverman",
 		  uID: 10207082729414692,
+		  hashed_pwd: 'n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg='
 		  calendarIDs:[
 		  {
 			  cID:2

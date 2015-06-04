@@ -50,9 +50,7 @@ angular
 })
 .service('AccountService', function() {
 	this.SignIn = function() {
-		$http.get('/auth/facebook').success(function(data, status, headers, config) {
-			$location.path('#/calendar');
-		});
+			$location.path('#/calendar');	
 	};
 	
 	this.SignOut = function() {

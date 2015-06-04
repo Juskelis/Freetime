@@ -12,49 +12,15 @@ var express = require('express')
   , FacebookStrategy = require('passport-facebook').Strategy;
 var app = express();
 
-var FACEBOOK_APP_ID = "372279769646000"; 
-var FACEBOOK_APP_SECRET = "b70bc4f287f6648696feed2a3feaf25b";
-
-
 // create application/json parser
 var jsonParser = bodyParser.json();
 
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-
-
 //put config url behind file to hide passwords and username
 var mongoDBConnection = require('./db.ftSample.config');
-
 console.log(mongoDBConnection.uri);
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-
-
-passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-	callbackURL: "http://me.localtest.me/auth/facebook/callback"
-  },
-  function	(accessToken, refreshToken, profile, done) {
-    //User.find({uId: profile.id}, function(err, user) {
-    //if (err) { return done(err); }
-	process.nextTick(function () {
-      
-    return done(null, profile);
-    });
-  }
-));
-
-
-
 var server = http.createServer(app);
 
 
@@ -84,6 +50,7 @@ var server = http.createServer(app);
 var Users;
 var Calendars                  
 var idGenerator = 1000;
+var userID =  10204294063808640;
 mongoose.connect(mongoDBConnection.uri);
 mongoose.connection.on('open', function() {
 	var Schema = mongoose.Schema;
@@ -122,26 +89,8 @@ mongoose.connection.on('open', function() {
 	Calendars = mongoose.model('Calendars', calendarSchema);
 	console.log('models have been created');
 });
-//------------------------------------------------------------------------------------------------------------------------------
-app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: ['public_profile'] }),
-  function(req, res){
-    // The request will be redirected to Facebook for authentication, so
-    // this function will not be called.
-  });
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect('/#/calendar/');
-  });
-  
-app.get('/logout', function(req, res){
-	req.logout();
-	res.redirect('/');
-});
- 
-  
+
  //FUNCTIONS
  //------------------------------------------------------------------------
  
@@ -149,7 +98,7 @@ app.get('/logout', function(req, res){
 
  function getAllEvents(req, res) {
 	 
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
 			var arr = [];
@@ -175,7 +124,7 @@ app.get('/logout', function(req, res){
 
 
 function getMyEvents(req, res){
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
 			var arr = [];
@@ -203,7 +152,7 @@ function getMyEvents(req, res){
 	});
 }
 function getFriendEvents(req, res) {
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err && foundUser != null) {
 			console.log(foundUser.calendarIDs);
@@ -230,7 +179,7 @@ function getFriendEvents(req, res) {
 
 
 function saveCalendar(req,res, eventList){
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
 			//Calendars.findOneAndUpdate({calendarID: JSON.stringify(foundUser.calendarIDs[0]).replace( /\D+/g, '')} , {$set: {events: eventList}}, function (err, result) {
@@ -251,7 +200,7 @@ function saveCalendar(req,res, eventList){
 
 function saveSingleEvent(req,res, event){
 	
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
 			var arr = [];
@@ -274,67 +223,9 @@ function saveSingleEvent(req,res, event){
 	});
 }
 
-
-			/*
-function saveSingleEvent(req,res, event){
-	
-	var userQuery = Users.findOne({uID: req.user});
-	userQuery.exec(function (err, foundUser) {
-		if(!err) {
-			var arr = [];
-			arr.push(foundUser.calendarIDs[0].cID);
-			var fcalQuery = Calendars.where('calendarID').equals(arr[0]);
-			
-			fcalQuery.exec(function(err, cal) {
-				
-				
-				if(!err) {
-					for(var i in cal[0].events){
-						console.log("individual IDs " + cal[0].events[i].id);
-						if(cal[0].events[i].id == event.id){
-							cal[0].events[i] = event;
-							var holder = i;
-						}
-					}
-					
-					saveCalendar(req, res, cal[0].events);
-					
-					//cal[0].markModified('events');
-					//cal[0].save(function (err) {
-					//	if (err) {
-						//	console.log(err);
-						//}
-					});
-				})
-
-					
-					/*
-					//cal[0].save();
-					//calendars.markModified('cal.events[holder]');
-					//Calendars.markModified('cal');
-					//Calendars.markModified('cal[holder]');
-					//cal[0].events[holder].save();
-					//res.sendStatus(200);
-					}
-					else{
-					console.log("ERROR");
-					
-					res.sendStatus(404);
-				}
-				});
-		}
-		else{
-			console.log("ERROR");
-			
-			res.sendStatus(404);
-			}
-	});
-}
-*/
-
 function addEvent(req,res, event){
 	
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
 			var arr = [];
@@ -362,7 +253,7 @@ function addEvent(req,res, event){
 
 function createSingleEvent(req, res, event){
 	
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		if(!err) {
 			var arr = [];
@@ -389,7 +280,7 @@ function createSingleEvent(req, res, event){
 }
 
 function deleteSingleEvent(req, res, eventID) {
-	var userQuery = Users.findOne({uID: req.user});
+	var userQuery = Users.findOne({uID: userID});
 	userQuery.exec(function (err, foundUser) {
 		var arr = [];
 		arr.push(foundUser.calendarIDs[0].cID);
@@ -410,45 +301,7 @@ function deleteSingleEvent(req, res, eventID) {
 }
 
 
-/*
- function getAllEvents(req, res){
-	 var calQuery = Users.findOne({uID: req.user});
-	 var test = []; 
-	 calQuery.exec(function (err, foundUser) {
-		//displayDBError(err);
-		console.log(foundUser);
-		console.log(foundUser.calendarID);
-		var foundCalID = foundUser.calendarID;
-		var query = Calendars.findOne({calendarID: foundCalID})
-		query.exec(function (err, itemArray){
-			console.log("result: " + itemArray);
-		});
-	});
- }
-
  
- function getFriendEvents(req,res){
-	 var curID = req.user;
-	 query = Calendars.find({}).where('calendarID').in(Users.fcalendarIDs);
-	 query.exec(function (err, itemArray) {
-		displayDBError(err);
-		console.log("result: " + itemArray);
-		res.json(itemArray);
-	});
- }	
- 
- 
- 
-  function getMyEvents(req, res){
-	 query = Calendars.findOne({uID: req.user});
-	 query.exec(function (err, itemArray) {
-		displayDBError(err);
-		console.log("result: " + itemArray);
-		res.json(itemArray);
-	});
- }
- 
-*/
 app.use('/', express.static('./apps/'));
 app.use('/eventSources/', express.static('./eventsources'));	
 	
@@ -457,7 +310,7 @@ app.use('/eventSources/', express.static('./eventsources'));
 	
 	
 app.get('/init/', function(req,res){
-	res.send(req.user);
+	res.send(userID);
 });
  //loading calendars
 app.get('/cal/', function (req, res){
@@ -500,32 +353,11 @@ app.put('/event/:eID', jsonParser, function(req, res){
 	console.log("running the put");
 	var event = req.body;
 	saveSingleEvent(req, res, event);
-	
-	/*
-	var calQuery = Users.findOne({uID: curID});
-	calQuery.exec(function(err, user) {
-		if(!err) {
-			var calID = user.calendarId;
-			var eventListQuery = Calendars.findOne({calendarId: calID});
-			eventListQuery.exec(function(err, cal) {
-				if(!err) {
-					var evList = cal.events;
-					for(var i in evList) {
-						if(evList[i].id == eventID)
-							evList[i] = event;
-					}
-					cal.events = evList;
-					Calendars.Update({calendarId: calID}, cal, {multi:false}, function(err) {
-						if(err) {
-							console.log("error updating events in calendar");
-						}
-					});
-				}
-			});
-		}
-	});
-	*/
-});/*
+});
+
+
+
+/*
 	What I'm doing:
 		getting all the data I need at the beginning (eventID, actual event object, userID)
 		get the user in the DB with userID
@@ -537,11 +369,11 @@ app.put('/event/:eID', jsonParser, function(req, res){
 app.post('/event/', jsonParser, function(req, res){
 	console.log("running the post");
 	var event = req.body;
-	//var curID = req.user.id;
+	//var curID = userID.id;
 	
 	//cal.events.push(event);
 		
-	event.uID = req.user;
+	event.uID = userID;
 	event.id = idGenerator;
 	event.privacy = "true";
 	
@@ -557,23 +389,6 @@ app.post('/event/', jsonParser, function(req, res){
 app.delete('/event/:eID', jsonParser, function(req, res) {
 	var eventID = req.params.eID;
 	deleteSingleEvent(req, res, eventID)
-/*
-	var eventID = req.params.eID;
-	console.log(eventID);
-
-	var curID = req.user;
-	console.log("curID: " + req.user);
-	var calQuery = Users.findOne({uID: curID});
-	calQuery.exec(function(err, user) {
-		if(!err) {
-			console.log("user?: " + JSON.stringify(user));
-			/*var calID = user.calendarID;
-			var query = Calendars.update({calendarId: calID}, {$pull: { events:{id:eventID}}});
-			query.exec(function(err, numOfDocsChanged) {
-				console.log("Changed " + numOfDocsChanged);
-			});
-		}
-	});*/
 });
   
  

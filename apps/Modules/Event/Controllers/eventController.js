@@ -41,7 +41,9 @@ angular
 					});
 				}
 				else {
-					console.log("submitEvent: $rootScope.event == null");	
+					if(moment($scope.event.start).format() == "Invalid date") {
+						$scope.event.start = moment($('#calendar').fullCalendar('getDate')).format();
+					}	
 					$http.post('/event/', event).success(function(data, status, headers, config) {
 						$location.path('/calendar');
 						$route.reload();

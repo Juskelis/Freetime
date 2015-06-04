@@ -8,7 +8,7 @@ angular
 		$scope.init = function() {
 			$scope.event = {
 				title:"",
-				start:"",
+				start: moment($('#calendar').fullCalendar('getDate')).format(),
 				description:""
 			};
 			if($rootScope.event != null) {
@@ -31,9 +31,13 @@ angular
 		*/
 		$scope.submitEvent = function(event) {
 			console.log(" In submitEvent");		
-			if($scope.event.title.length > 0)
-			console.log("submitEvent: Passed gatekeeper");				
+			if($scope.event.title.length > 0 && toString($scope.event.start).length != 0)			
 			{
+				
+				if(moment($scope.event.start).format() == "Invalid date") {
+						$scope.event.start = moment($('#calendar').fullCalendar('getDate')).format();
+					}
+					
 				if($rootScope.event != null) {
 					console.log("submitEvent: $rootScope.event != null");	
 					$http.put('/event/' + $scope.event.id, event).success(function(data, status, headers, config) {
@@ -42,7 +46,6 @@ angular
 					});
 				}
 				else {
-					console.log("submitEvent: $rootScope.event == null");	
 					$http.post('/event/', event).success(function(data, status, headers, config) {
 						$location.path('/calendar');
 						$route.reload();

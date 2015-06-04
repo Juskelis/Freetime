@@ -8,7 +8,7 @@ angular
 		$scope.init = function() {
 			$scope.event = {
 				title:"",
-				start:"",
+				start: "",
 				description:""
 			};
 			if($rootScope.event != null) {
@@ -31,8 +31,7 @@ angular
 		*/
 		$scope.submitEvent = function(event) {
 			console.log(" In submitEvent");		
-			if($scope.event.title.length > 0)
-			console.log("submitEvent: Passed gatekeeper");				
+			if($scope.event.title.length > 0 && toString($scope.event.start).length != 0)			
 			{
 				if($rootScope.event != null) {
 					console.log("submitEvent: $rootScope.event != null");	
